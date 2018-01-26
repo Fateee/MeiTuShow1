@@ -19,6 +19,7 @@ public abstract class BaseActivity <P extends BasePresenter, V extends BaseViewI
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mP = getPresenter();
+        if (mP == null) return;
         mP.attach((V)this);
     }
 
