@@ -12,6 +12,8 @@ import com.meitu.show.presenter.base.BaseViewInf;
 import com.meitu.show.request.GetHomeRequest;
 import com.meitu.show.viewinf.HomeViewInterface;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,5 +52,10 @@ public class MainActivity extends BaseActivity<HomePresenter,MainActivity> imple
     @Override
     protected HomePresenter getPresenter() {
         return new HomePresenter();
+    }
+
+    @Override
+    public void notifyHomeUiWithData(List<HomeMeituModel.Content.DataDetail> list) {
+
     }
 }

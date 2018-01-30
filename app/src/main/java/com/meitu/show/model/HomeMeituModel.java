@@ -51,7 +51,7 @@ public class HomeMeituModel implements BaseModelInf {
             this.list = list;
         }
 
-        public class DataDetail {
+        public static class DataDetail {
             private String img;
 
             private String link;
