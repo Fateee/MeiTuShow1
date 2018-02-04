@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.meitu.show.presenter.base.BasePresenter;
 import com.meitu.show.presenter.base.BaseViewInf;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by Administrator on 2018/1/18.
  */

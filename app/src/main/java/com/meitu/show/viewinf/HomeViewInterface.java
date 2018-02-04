@@ -11,5 +11,5 @@ import java.util.List;
 
 public interface HomeViewInterface extends BaseViewInf {
 
-    void notifyHomeUiWithData(List<HomeMeituModel.Content.DataDetail> list);
+    void notifyHomeUiWithData(List<HomeMeituModel.Content.DataDetail> list,boolean refresh);
 }

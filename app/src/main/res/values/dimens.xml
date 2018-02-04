@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="common230">230dp</dimen>
+    <dimen name="common6">6dp</dimen>
+    <dimen name="common7">7dp</dimen>
+</resources>

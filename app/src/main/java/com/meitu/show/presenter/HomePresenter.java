@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
 
+import com.meitu.show.Constant;
 import com.meitu.show.model.HomeMeituModel;
 import com.meitu.show.presenter.base.BasePresenter;
 import com.meitu.show.request.GetHomeRequest;
@@ -23,12 +24,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomePresenter extends BasePresenter<HomeViewInterface,HomeMeituModel> implements Callback<HomeMeituModel> {
 
-    private String mHomeUrl = "http://www.meitu99.cn/";
     private Retrofit mRetrofit;
     private final GetHomeRequest mRequestModel;
     private int pageNo = 1;
     public HomePresenter() {
-        mRetrofit = new Retrofit.Builder().baseUrl(mHomeUrl)
+        mRetrofit = new Retrofit.Builder().baseUrl(Constant.mHomeUrl)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         mRequestModel = mRetrofit.create(GetHomeRequest.class);
     }
@@ -39,25 +39,9 @@ public class HomePresenter extends BasePresenter<HomeViewInterface,HomeMeituMode
     }
 
     public void getHomeMeiTuList(boolean refresh) {
-        if (refresh) pageNo = 0;
+        if (refresh) pageNo = 1;
         Call<HomeMeituModel> requestCallback = mRequestModel.getHomeMeitu(String.valueOf(pageNo));
         requestCallback.enqueue(this);
-    }
-
-    public void requestHomeUrl(String url) {
-        new Thread() {
-            @Override
-            public void run() {
-                Looper.prepare();
-                new Handler() {
-                    @Override
-                    public void handleMessage(Message msg) {
-                        super.handleMessage(msg);
-                    }
-                };
-                super.run();
-            }
-        }.start();
     }
 
     @Override
@@ -68,7 +52,7 @@ public class HomePresenter extends BasePresenter<HomeViewInterface,HomeMeituMode
         HomeViewInterface homeView = getView();
         HomeMeituModel.Content data = response.body().getData();
         if (homeView != null ) {
-            homeView.notifyHomeUiWithData(data.getList());
+            homeView.notifyHomeUiWithData(data.getList(),pageNo > 1 ? false:true);
         }
     }
 
