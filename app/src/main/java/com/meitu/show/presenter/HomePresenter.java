@@ -39,7 +39,10 @@ public class HomePresenter extends BasePresenter<HomeViewInterface,HomeMeituMode
     }
 
     public void getHomeMeiTuList(boolean refresh) {
-        if (refresh) pageNo = 1;
+        if (refresh) {
+            if (getView() != null) getView().showLoading();
+            pageNo = 1;
+        }
         Call<HomeMeituModel> requestCallback = mRequestModel.getHomeMeitu(String.valueOf(pageNo));
         requestCallback.enqueue(this);
     }
@@ -52,6 +55,7 @@ public class HomePresenter extends BasePresenter<HomeViewInterface,HomeMeituMode
         HomeViewInterface homeView = getView();
         HomeMeituModel.Content data = response.body().getData();
         if (homeView != null ) {
+            homeView.dismissLoading();
             homeView.notifyHomeUiWithData(data.getList(),pageNo > 1 ? false:true);
         }
     }

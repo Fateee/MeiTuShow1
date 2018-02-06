@@ -6,16 +6,22 @@
     android:layout_height="match_parent"
     tools:context="com.meitu.show.home.activity.MainActivity">
 
+    <include
+        android:id="@+id/include"
+        layout="@layout/titleview" />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_Refresh_grid_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/CF3F3F3"
+        app:layout_constraintTop_toBottomOf="@+id/include">
 
         <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
             android:id="@+id/swipe_grid_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/common7"/>
+            android:padding="@dimen/common7" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
 

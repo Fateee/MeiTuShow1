@@ -22,6 +22,7 @@ import java.util.List;
 
 public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
 
+    private int[] mPlaceHolders = new int[] {R.color.CBBDEFB,R.color.CC5CAE9,R.color.CD8D8D8,R.color.CDCEDC8,R.color.CFDEFBA};
     private List<T> mDataList;
     private Context mContext;
     private View.OnClickListener mProlistListener = new View.OnClickListener() {
@@ -31,6 +32,7 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
             ProfileListActivity.startActivity(mContext,url);
         }
     };
+    private int mItemWidth;
 
     public HomeAdapter(Context context) {
         mDataList = new ArrayList<>();
@@ -57,8 +59,15 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
         if (temp instanceof ProlistModel.ProlistContent.DataDetail) {
             url = ((ProlistModel.ProlistContent.DataDetail) temp).getImg();
             if (TextUtils.isEmpty(url)) return;
+            ViewGroup.LayoutParams layoutParams = holder.mHomeItemIV.getLayoutParams();
+            layoutParams.width = mItemWidth;
+            layoutParams.height = mItemWidth;
+            holder.mHomeItemIV.setLayoutParams(layoutParams);
+            holder.itemView.setPadding(3,3,3,3);
         }
-        Glide.with(mContext).load(url).centerCrop().into(holder.mHomeItemIV);
+        int index=(int)(Math.random()*mPlaceHolders.length);
+        int nowHolder = mPlaceHolders[index];
+        Glide.with(mContext).load(url).placeholder(nowHolder).centerCrop().into(holder.mHomeItemIV);
     }
 
     @Override
@@ -72,5 +81,9 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
         }
         mDataList.addAll(list);
         notifyDataSetChanged();
+    }
+
+    public void setItemWidth(int mItemWidth) {
+        this.mItemWidth = mItemWidth;
     }
 }

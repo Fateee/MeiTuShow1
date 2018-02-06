@@ -10,6 +10,8 @@ import java.util.List;
  */
 
 public interface HomeViewInterface extends BaseViewInf {
-
+    void showLoading();
+    void dismissLoading();
+    void showErrorView();
     void notifyHomeUiWithData(List<HomeMeituModel.Content.DataDetail> list,boolean refresh);
 }

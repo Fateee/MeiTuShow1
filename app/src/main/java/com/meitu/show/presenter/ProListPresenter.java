@@ -10,7 +10,9 @@ import com.meitu.show.request.GetHomeRequest;
 import com.meitu.show.request.GetProlistRequest;
 import com.meitu.show.viewinf.ProListViewInterface;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -61,16 +63,33 @@ public class ProListPresenter extends BasePresenter<ProListViewInterface,Prolist
         return null;
     }
 
+//    public void getProlistMeiTuList(boolean refresh,String url) {
+//        if (TextUtils.isEmpty(url)) return;
+//        if (refresh) pageNo = 1;
+//        Map<String,String> param = new HashMap<>();
+//        param.put("pageNum",String.valueOf(pageNo));
+//        param.put("url",url);
+//        Call<ProlistModel> requestCallback = mRequestModel.getProlistMeitu(param);
+//        requestCallback.enqueue(this);
+//    }
+
+    private String mUrl;
+
     public void getProlistMeiTuList(boolean refresh,String url) {
         if (TextUtils.isEmpty(url)) return;
-        if (refresh) pageNo = 1;
+        mUrl = url;
+        if (refresh) {
+            if (getView() != null) getView().showLoading();
+            pageNo = 1;
+        }
         Map<String,String> param = new HashMap<>();
         param.put("pageNum",String.valueOf(pageNo));
         param.put("url",url);
         Call<ProlistModel> requestCallback = mRequestModel.getProlistMeitu(param);
         requestCallback.enqueue(this);
     }
-
+    private List<ProlistModel.ProlistContent.DataDetail> previousList = new ArrayList<>();
+    private List<ProlistModel.ProlistContent.DataDetail> allList = new ArrayList<>();
     @Override
     public void onResponse(Call<ProlistModel> call, Response<ProlistModel> response) {
         String status = response.body() != null ? response.body().getStatus() : "";
@@ -78,9 +97,45 @@ public class ProListPresenter extends BasePresenter<ProListViewInterface,Prolist
         pageNo++;
         ProListViewInterface homeView = getView();
         ProlistModel.ProlistContent data = response.body().getData();
-        if (homeView != null ) {
-            homeView.notifyListUiWithData(data.getList(),pageNo > 1 ? false:true);
+        if (pageNo == 2) {
+            addDataLoadMore(data);
+        } else {
+            if (previousList != null && previousList.size() > 0 && data.getList() != null && data.getList().size() > 0) {
+                String lastPageFirst = previousList.get(0).getImg();
+                String nowPageFirst = data.getList().get(0).getImg();
+                if (!TextUtils.isEmpty(lastPageFirst) && !TextUtils.isEmpty(nowPageFirst)) {
+                    //拿当前这一页数据和上一页数据的第一个比较 相同则说明加载完成
+                    if (!lastPageFirst.equals(nowPageFirst)) {
+                        addDataLoadMore(data);
+                    } else {
+                        if (homeView != null ) {
+                            homeView.dismissLoading();
+                            homeView.notifyListUiWithData(allList);
+                        }
+                    }
+                } else {
+                    if (homeView != null ) {
+                        homeView.dismissLoading();
+                        homeView.showErrorView();
+                    }
+                }
+            } else {
+                if (homeView != null ) {
+                    homeView.dismissLoading();
+                    homeView.showErrorView();
+                }
+            }
         }
+//        if (homeView != null ) {
+////            homeView.notifyListUiWithData(data.getList(),pageNo > 1 ? false:true);
+//            //拿当前这一页数据和上一页数据的第一个比较 相同则说明加载完成
+//        }
+    }
+
+    private void addDataLoadMore(ProlistModel.ProlistContent data) {
+        previousList = data.getList();
+        allList.addAll(previousList);
+        getProlistMeiTuList(false,mUrl);
     }
 
     @Override

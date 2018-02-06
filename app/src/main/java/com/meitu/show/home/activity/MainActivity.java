@@ -79,6 +79,21 @@ public class MainActivity extends BaseActivity<HomePresenter, MainActivity> impl
     }
 
     @Override
+    public void showLoading() {
+        swipeRefreshGridList.setRefreshing(true);
+    }
+
+    @Override
+    public void dismissLoading() {
+        swipeRefreshGridList.setRefreshing(false);
+    }
+
+    @Override
+    public void showErrorView() {
+
+    }
+
+    @Override
     public void notifyHomeUiWithData(List<HomeMeituModel.Content.DataDetail> list, boolean refresh) {
         if (list == null) return;
         if (swipeRefreshGridList.isRefreshing()) swipeRefreshGridList.setRefreshing(false);

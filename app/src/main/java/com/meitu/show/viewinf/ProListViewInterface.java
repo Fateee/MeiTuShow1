@@ -12,5 +12,9 @@ import java.util.List;
  */
 
 public interface ProListViewInterface extends BaseViewInf {
+    void showLoading();
+    void dismissLoading();
+    void showErrorView();
     void notifyListUiWithData(List<ProlistModel.ProlistContent.DataDetail> list, boolean refresh);
+    void notifyListUiWithData(List<ProlistModel.ProlistContent.DataDetail> list);
 }
