@@ -7,7 +7,6 @@
     tools:context="com.meitu.show.home.activity.MainActivity">
 
     <include
-        android:id="@+id/include"
         layout="@layout/titleview" />
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -15,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/CF3F3F3"
-        app:layout_constraintTop_toBottomOf="@+id/include">
+        app:layout_constraintTop_toBottomOf="@+id/simple_toolbar">
 
         <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
             android:id="@+id/swipe_grid_list"
