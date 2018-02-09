@@ -2,13 +2,14 @@ package com.meitu.show.model;
 
 import com.meitu.show.presenter.base.BaseModelInf;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2018/2/4.
  */
 
-public class ProlistModel implements BaseModelInf {
+public class ProlistModel implements BaseModelInf,Serializable {
 //    {"status":"OK",
 //            "data":{
 //        "list":[
@@ -49,7 +50,7 @@ public class ProlistModel implements BaseModelInf {
         this.desc = desc;
     }
 
-    public static class ProlistContent {
+    public static class ProlistContent implements Serializable {
         private List<ProlistModel.ProlistContent.DataDetail> list;
 
         private int total;
@@ -70,7 +71,7 @@ public class ProlistModel implements BaseModelInf {
             this.total = total;
         }
 
-        public static class DataDetail {
+        public static class DataDetail implements Serializable{
             private String img;
 
             public String getImg() {

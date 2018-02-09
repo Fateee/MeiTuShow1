@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".home.activity.MainActivity"
+            android:name=".activitys.home.activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,10 @@
         </activity>
 
         <activity
-            android:name=".profilelist.activity.ProfileListActivity"
+            android:name=".activitys.profilelist.activity.ProfileListActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activitys.details.PhotoViewActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

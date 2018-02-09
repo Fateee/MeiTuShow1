@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.meitu.show.home.activity.MainActivity">
+    tools:context=".activitys.home.activity.MainActivity">
 
     <include
         layout="@layout/titleview" />
@@ -13,8 +13,8 @@
         android:id="@+id/swipe_Refresh_grid_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/CF3F3F3"
-        app:layout_constraintTop_toBottomOf="@+id/simple_toolbar">
+        android:layout_below="@id/simple_toolbar"
+        android:background="@color/CF3F3F3">
 
         <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
             android:id="@+id/swipe_grid_list"
@@ -23,5 +23,4 @@
             android:padding="@dimen/common7" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
