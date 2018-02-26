@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.meitu.show.Constant;
 import com.meitu.show.model.HomeMeituModel;
@@ -11,6 +12,10 @@ import com.meitu.show.presenter.base.BasePresenter;
 import com.meitu.show.request.GetHomeRequest;
 import com.meitu.show.viewinf.HomeViewInterface;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,6 +33,26 @@ public class HomePresenter extends BasePresenter<HomeViewInterface,HomeMeituMode
     private final GetHomeRequest mRequestModel;
     private int pageNo = 1;
     public HomePresenter() {
+
+//        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+//            @Override
+//            public void log(String message) {
+//                //打印retrofit日志
+//                Log.e("RetrofitLog", "retrofitBack = " + message);
+//            }
+//        });
+//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//
+//        OkHttpClient client = new OkHttpClient.Builder()
+//                .addInterceptor(loggingInterceptor)
+//                .connectTimeout(5000, TimeUnit.SECONDS)
+//                .readTimeout(5000, TimeUnit.SECONDS)
+//                .writeTimeout(5000, TimeUnit.SECONDS)
+//                .build();
+
+//        mRetrofit = new Retrofit.Builder().baseUrl(Constant.mHomeUrl).client(client)
+//                .addConverterFactory(GsonConverterFactory.create()).build();
+
         mRetrofit = new Retrofit.Builder().baseUrl(Constant.mHomeUrl)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         mRequestModel = mRetrofit.create(GetHomeRequest.class);
