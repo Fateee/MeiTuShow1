@@ -2,13 +2,16 @@ package com.meitu.show.view;
 
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.meitu.show.Constant;
 import com.meitu.show.R;
+import com.meitu.show.model.PoProlistModel;
 import com.meitu.show.model.ProlistModel;
 
 import java.util.ArrayList;
@@ -20,26 +23,30 @@ import java.util.List;
  * author: huyi
  */
 
-public class MyImageAdapter extends PagerAdapter {
+public class MyImageAdapter<T> extends PagerAdapter {
 
     public static final String TAG = MyImageAdapter.class.getSimpleName();
-    private List<ProlistModel.ProlistContent.DataDetail> mDataList;
+    private List<T> mDataList;
     private AppCompatActivity activity;
     private int[] mPlaceHolders = new int[] {R.color.CBBDEFB,R.color.CC5CAE9,R.color.CD8D8D8,R.color.CDCEDC8,R.color.CFDEFBA};
 
-    public MyImageAdapter(ArrayList<ProlistModel.ProlistContent.DataDetail> dataList, AppCompatActivity activity) {
+    public MyImageAdapter(ArrayList<T> dataList, AppCompatActivity activity) {
         this.mDataList = dataList;
         this.activity = activity;
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        ProlistModel.ProlistContent.DataDetail temp = mDataList.get(position);
+        Object temp = mDataList.get(position);
+        String url = "";
+        if (temp instanceof PoProlistModel.ContentBean) {
+            url = Constant.mHomePoUrl+((PoProlistModel.ContentBean)temp).getUrl();
+        }
         PhotoView photoView = new PhotoView(activity);
         //显示图片
         int index=(int)(Math.random()*mPlaceHolders.length);
         int nowHolder = mPlaceHolders[index];
-        Glide.with(activity).load(temp.getImg()).placeholder(nowHolder).into(photoView);
+        Glide.with(activity).load(url).placeholder(nowHolder).into(photoView);
         container.addView(photoView);
         photoView.setOnClickListener(new View.OnClickListener() {
             @Override

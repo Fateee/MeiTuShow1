@@ -1,6 +1,7 @@
 package com.meitu.show.viewinf;
 
 
+import com.meitu.show.model.PoProlistModel;
 import com.meitu.show.model.ProlistModel;
 import com.meitu.show.presenter.base.BaseViewInf;
 
@@ -17,4 +18,5 @@ public interface ProListViewInterface extends BaseViewInf {
     void showErrorView();
     void notifyListUiWithData(List<ProlistModel.ProlistContent.DataDetail> list, boolean refresh);
     void notifyListUiWithData(List<ProlistModel.ProlistContent.DataDetail> list);
+    void notifyListUiWithAllData(List<PoProlistModel.ContentBean> list);
 }

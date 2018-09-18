@@ -1,5 +1,6 @@
 package com.meitu.show.request;
 
+import com.meitu.show.model.PoProlistModel;
 import com.meitu.show.model.ProlistModel;
 
 import java.util.Map;
@@ -20,4 +21,8 @@ public interface GetProlistRequest {
 
     @GET("details")
     Call<ProlistModel> getProlistMeitu(@QueryMap Map<String, String> params);
+
+
+    @GET("spacial/imagesv2")
+    Call<PoProlistModel> getPoProlistMeitu(@QueryMap Map<String, String> params);
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.meitu.show.R;
+import com.meitu.show.model.PoProlistModel;
 import com.meitu.show.model.ProlistModel;
 import com.meitu.show.view.MyImageAdapter;
 import com.meitu.show.view.PhotoViewPager;
@@ -36,7 +37,7 @@ public class PhotoViewActivity extends AppCompatActivity {
     private MyImageAdapter adapter;
     private TextView mTvImageCount;
     private TextView mTvSaveImage;
-    private ArrayList<ProlistModel.ProlistContent.DataDetail> mDataList;
+    private ArrayList<PoProlistModel.ContentBean> mDataList;
 
     @BindView(R.id.view_pager_photo)
     PhotoViewPager mViewPager;
@@ -68,7 +69,7 @@ public class PhotoViewActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         currentPosition = intent.getIntExtra(NOWPOS, 0);
-        mDataList = (ArrayList<ProlistModel.ProlistContent.DataDetail>) intent.getSerializableExtra(DATALIST);
+        mDataList = (ArrayList<PoProlistModel.ContentBean>) intent.getSerializableExtra(DATALIST);
         txtMainTitle.setText((currentPosition+1)+"/"+mDataList.size());
         adapter = new MyImageAdapter(mDataList, this);
         mViewPager.setAdapter(adapter);

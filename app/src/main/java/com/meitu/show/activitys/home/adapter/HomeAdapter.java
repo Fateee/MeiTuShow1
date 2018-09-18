@@ -9,9 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.meitu.show.Constant;
 import com.meitu.show.R;
 import com.meitu.show.activitys.details.PhotoViewActivity;
 import com.meitu.show.model.HomeMeituModel;
+import com.meitu.show.model.PoMeiTuModel;
+import com.meitu.show.model.PoProlistModel;
 import com.meitu.show.model.ProlistModel;
 import com.meitu.show.activitys.profilelist.activity.ProfileListActivity;
 
@@ -30,8 +33,8 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
     private View.OnClickListener mProlistListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String url = (String) v.getTag(R.id.id_one);
-            ProfileListActivity.startActivity(mContext,url);
+            int imgId = (int) v.getTag(R.id.id_one);
+            ProfileListActivity.startActivity(mContext,imgId);
         }
     };
     private int mItemWidth;
@@ -74,6 +77,22 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
         }
         if (temp instanceof ProlistModel.ProlistContent.DataDetail) {
             url = ((ProlistModel.ProlistContent.DataDetail) temp).getImg();
+            if (TextUtils.isEmpty(url)) return;
+            ViewGroup.LayoutParams layoutParams = holder.mHomeItemIV.getLayoutParams();
+            layoutParams.width = mItemWidth;
+            layoutParams.height = mItemWidth;
+            holder.mHomeItemIV.setLayoutParams(layoutParams);
+            holder.itemView.setPadding(3,3,3,3);
+            holder.mHomeItemIV.setTag(R.id.id_one,position);
+            holder.mHomeItemIV.setOnClickListener(mDetailListener);
+        } else if (temp instanceof PoMeiTuModel.ContentBean) {
+            url = Constant.mHomePoUrl+((PoMeiTuModel.ContentBean)temp).getCover();
+            if (TextUtils.isEmpty(url)) return;
+            int linkId = ((PoMeiTuModel.ContentBean)temp).getId();
+            holder.mHomeItemIV.setTag(R.id.id_one,linkId);
+            holder.mHomeItemIV.setOnClickListener(mProlistListener);
+        } else if (temp instanceof PoProlistModel.ContentBean) {
+            url = Constant.mHomePoUrl+((PoProlistModel.ContentBean)temp).getUrl();
             if (TextUtils.isEmpty(url)) return;
             ViewGroup.LayoutParams layoutParams = holder.mHomeItemIV.getLayoutParams();
             layoutParams.width = mItemWidth;

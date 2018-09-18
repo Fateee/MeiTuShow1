@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.meitu.show.BaseActivity;
 import com.meitu.show.R;
 import com.meitu.show.activitys.home.adapter.HomeAdapter;
+import com.meitu.show.model.PoProlistModel;
 import com.meitu.show.model.ProlistModel;
+import com.meitu.show.presenter.PoProListPresenter;
 import com.meitu.show.presenter.ProListPresenter;
 import com.meitu.show.view.SimpleToolbar;
 import com.meitu.show.viewinf.ProListViewInterface;
@@ -27,9 +29,9 @@ import butterknife.OnClick;
  * Created by Administrator on 2018/2/4.
  */
 
-public class ProfileListActivity extends BaseActivity<ProListPresenter, ProfileListActivity> implements ProListViewInterface {
+public class ProfileListActivity extends BaseActivity<PoProListPresenter, ProfileListActivity> implements ProListViewInterface {
 
-    private static String URL_PARAM = "URL_PARAM";
+    private static String URL_ID_PARAM = "URL_PARAM";
     @BindView(R.id.swipe_grid_list)
     SwipeMenuRecyclerView swipeGridList;
     @BindView(R.id.swipe_Refresh_grid_list)
@@ -41,7 +43,7 @@ public class ProfileListActivity extends BaseActivity<ProListPresenter, ProfileL
     @BindView(R.id.simple_toolbar)
     SimpleToolbar simpleToolbar;
 
-    private ProListPresenter mProListPresenter;
+    private PoProListPresenter mProListPresenter;
 
     private HomeAdapter mHomeAdapter;
 
@@ -49,7 +51,7 @@ public class ProfileListActivity extends BaseActivity<ProListPresenter, ProfileL
         @Override
         public void onLoadMore() {
             // 该加载更多啦。
-            mProListPresenter.getProlistMeiTuList(false, mUrlParam);
+            mProListPresenter.getProlistMeiTuList(false, mImgId);
 
             // 如果加载失败调用下面的方法，传入errorCode和errorMessage。
             // errorCode随便传，你自定义LoadMoreView时可以根据errorCode判断错误类型。
@@ -63,12 +65,12 @@ public class ProfileListActivity extends BaseActivity<ProListPresenter, ProfileL
             initData();
         }
     };
-    private String mUrlParam;
+    private int mImgId;
     private int mItemWidth;
 
-    public static void startActivity(Context mContext, String url) {
+    public static void startActivity(Context mContext, int id) {
         Intent intent = new Intent(mContext, ProfileListActivity.class);
-        intent.putExtra(URL_PARAM, url);
+        intent.putExtra(URL_ID_PARAM, id);
         mContext.startActivity(intent);
     }
 
@@ -83,11 +85,11 @@ public class ProfileListActivity extends BaseActivity<ProListPresenter, ProfileL
     }
 
     private void prepareData() {
-        mUrlParam = getIntent().getStringExtra(URL_PARAM);
+        mImgId = getIntent().getIntExtra(URL_ID_PARAM,0);
     }
 
     private void initData() {
-        mProListPresenter.getProlistMeiTuList(true, mUrlParam);
+        mProListPresenter.getProlistMeiTuList(true, mImgId);
     }
 
     private void initView() {
@@ -107,8 +109,8 @@ public class ProfileListActivity extends BaseActivity<ProListPresenter, ProfileL
     private static final String TAG = "MainActivity";
 
     @Override
-    protected ProListPresenter getPresenter() {
-        mProListPresenter = new ProListPresenter();
+    protected PoProListPresenter getPresenter() {
+        mProListPresenter = new PoProListPresenter();
         return mProListPresenter;
     }
 
@@ -140,6 +142,14 @@ public class ProfileListActivity extends BaseActivity<ProListPresenter, ProfileL
 
     @Override
     public void notifyListUiWithData(List<ProlistModel.ProlistContent.DataDetail> list) {
+//        if (list == null) return;
+//        if (swipeRefreshGridList.isRefreshing()) swipeRefreshGridList.setRefreshing(false);
+//        mHomeAdapter.refreshUI(list, true);
+//        swipeGridList.loadMoreFinish(list.size() == 0, false);
+    }
+
+    @Override
+    public void notifyListUiWithAllData(List<PoProlistModel.ContentBean> list) {
         if (list == null) return;
         if (swipeRefreshGridList.isRefreshing()) swipeRefreshGridList.setRefreshing(false);
         mHomeAdapter.refreshUI(list, true);

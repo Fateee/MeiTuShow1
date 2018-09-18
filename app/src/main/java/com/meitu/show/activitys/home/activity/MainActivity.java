@@ -9,6 +9,7 @@ import com.meitu.show.BaseActivity;
 import com.meitu.show.R;
 import com.meitu.show.activitys.home.adapter.HomeAdapter;
 import com.meitu.show.model.HomeMeituModel;
+import com.meitu.show.model.PoMeiTuModel;
 import com.meitu.show.presenter.HomePresenter;
 import com.meitu.show.view.SimpleToolbar;
 import com.meitu.show.viewinf.HomeViewInterface;
@@ -106,7 +107,7 @@ public class MainActivity extends BaseActivity<HomePresenter, MainActivity> impl
     }
 
     @Override
-    public void notifyHomeUiWithData(List<HomeMeituModel.Content.DataDetail> list, boolean refresh) {
+    public void notifyHomeUiWithData(List<PoMeiTuModel.ContentBean> list, boolean refresh) {
         if (list == null) return;
         if (swipeRefreshGridList.isRefreshing()) swipeRefreshGridList.setRefreshing(false);
         mHomeAdapter.refreshUI(list, refresh);
