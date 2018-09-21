@@ -6,8 +6,8 @@ android {
         applicationId "com.meitu.show"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 99
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -36,4 +36,5 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
 }

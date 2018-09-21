@@ -9,9 +9,15 @@ import android.util.Log;
 import com.meitu.show.Constant;
 import com.meitu.show.model.PoMeiTuModel;
 import com.meitu.show.model.PoMeiTuModel;
+import com.meitu.show.model.eventbus.EventConst;
+import com.meitu.show.model.eventbus.MessageEvent;
+import com.meitu.show.model.version.AppVerInfo;
 import com.meitu.show.presenter.base.BasePresenter;
+import com.meitu.show.request.CheckVersionRequest;
 import com.meitu.show.request.GetHomeRequest;
 import com.meitu.show.viewinf.HomeViewInterface;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomePresenter extends BasePresenter<HomeViewInterface,PoMeiTuModel> implements Callback<PoMeiTuModel> {
 
+    private final CheckVersionRequest mAppRequestModel;
     private Retrofit mRetrofit;
     private final GetHomeRequest mRequestModel;
     private int pageNo = 1;
@@ -61,6 +68,10 @@ public class HomePresenter extends BasePresenter<HomeViewInterface,PoMeiTuModel>
 //        mRetrofit = new Retrofit.Builder().baseUrl(Constant.mHomePoUrl)
 //                .addConverterFactory(GsonConverterFactory.create()).build();
         mRequestModel = mRetrofit.create(GetHomeRequest.class);
+
+        Retrofit mAppRetrofit = new Retrofit.Builder().baseUrl(Constant.mAppInfoUrl).client(client)
+                .addConverterFactory(GsonConverterFactory.create()).build();
+        mAppRequestModel = mAppRetrofit.create(CheckVersionRequest.class);
     }
 
     @Override
@@ -98,5 +109,24 @@ public class HomePresenter extends BasePresenter<HomeViewInterface,PoMeiTuModel>
     @Override
     public void onFailure(Call<PoMeiTuModel> call, Throwable t) {
 
+    }
+
+    public void getAppNewestInfo() {
+        Call<AppVerInfo> requestCallback = mAppRequestModel.checkNewestVersion();
+        requestCallback.enqueue(new Callback<AppVerInfo>() {
+            @Override
+            public void onResponse(Call<AppVerInfo> call, Response<AppVerInfo> response) {
+                int code = response.body() != null ? response.body().getCode() : -1;
+                if (code == 0) {
+                    MessageEvent appmsg = new MessageEvent(EventConst.CHECK_APP_INFO,response.body());
+                    EventBus.getDefault().post(appmsg);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AppVerInfo> call, Throwable t) {
+
+            }
+        });
     }
 }

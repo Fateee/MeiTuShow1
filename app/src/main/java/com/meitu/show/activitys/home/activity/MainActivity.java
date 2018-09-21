@@ -61,15 +61,20 @@ public class MainActivity extends BaseActivity<HomePresenter, MainActivity> impl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 //        request();
         initView();
         initData();
     }
 
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_main;
+    }
+
     private void initData() {
         mHomePresenter.getHomeMeiTuList(true);
+        mHomePresenter.getAppNewestInfo();
     }
 
     private void initView() {
@@ -77,7 +82,7 @@ public class MainActivity extends BaseActivity<HomePresenter, MainActivity> impl
         swipeRefreshGridList.setOnRefreshListener(mReefreshListener);
         swipeGridList.useDefaultLoadMore();
         swipeGridList.setLoadMoreListener(mLoadMoreListener);
-        GridLayoutManager mGridLayoutManager = new GridLayoutManager(this, 2);
+        GridLayoutManager mGridLayoutManager = new GridLayoutManager(this, 1);
         swipeGridList.setLayoutManager(mGridLayoutManager);
         mHomeAdapter = new HomeAdapter(this);
         swipeGridList.setAdapter(mHomeAdapter);

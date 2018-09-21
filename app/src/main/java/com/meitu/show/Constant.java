@@ -9,4 +9,5 @@ public class Constant {
 
     public static final String mHomePoUrl = "http://www.poshow18.com/";
     public static boolean debug = true;
+    public static final String mAppInfoUrl = "http://118.24.14.150:5000/";
 }

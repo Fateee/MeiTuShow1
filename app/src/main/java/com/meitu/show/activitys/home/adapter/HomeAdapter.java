@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.meitu.show.Constant;
@@ -88,6 +89,10 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
         } else if (temp instanceof PoMeiTuModel.ContentBean) {
             url = Constant.mHomePoUrl+((PoMeiTuModel.ContentBean)temp).getCover();
             if (TextUtils.isEmpty(url)) return;
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mHomeItemIV.getLayoutParams();
+            layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
+            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            holder.mHomeItemIV.setLayoutParams(layoutParams);
             int linkId = ((PoMeiTuModel.ContentBean)temp).getId();
             holder.mHomeItemIV.setTag(R.id.id_one,linkId);
             holder.mHomeItemIV.setOnClickListener(mProlistListener);
