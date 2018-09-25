@@ -1,13 +1,8 @@
 package com.meitu.show.presenter;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.meitu.show.Constant;
-import com.meitu.show.model.PoMeiTuModel;
 import com.meitu.show.model.PoMeiTuModel;
 import com.meitu.show.model.eventbus.EventConst;
 import com.meitu.show.model.eventbus.MessageEvent;
@@ -45,34 +40,37 @@ public class HomePresenter extends BasePresenter<HomeViewInterface,PoMeiTuModel>
     private int pageNo = 1;
     private int pageNum = 10;
     public HomePresenter() {
-
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-                //打印retrofit日志
-                Log.e("RetrofitLog", "retrofitBack = " + message);
-            }
-        });
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .connectTimeout(5000, TimeUnit.SECONDS)
-                .readTimeout(5000, TimeUnit.SECONDS)
-                .writeTimeout(5000, TimeUnit.SECONDS)
-                .build();
-
-        mRetrofit = new Retrofit.Builder().baseUrl(Constant.mHomePoUrl).client(client)
-                .addConverterFactory(GsonConverterFactory.create()).build();
-
-//        mRetrofit = new Retrofit.Builder().baseUrl(Constant.mHomePoUrl)
+        super();
+//        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+//            @Override
+//            public void log(String message) {
+//                //打印retrofit日志
+//                Log.e("RetrofitLog", "retrofitBack = " + message);
+//            }
+//        });
+//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//
+//        OkHttpClient client = new OkHttpClient.Builder()
+//                .addInterceptor(loggingInterceptor)
+//                .connectTimeout(5000, TimeUnit.SECONDS)
+//                .readTimeout(5000, TimeUnit.SECONDS)
+//                .writeTimeout(5000, TimeUnit.SECONDS)
+//                .build();
+//        mRetrofit = new Retrofit.Builder().baseUrl(Constant.mHomePoUrl).client(client)
 //                .addConverterFactory(GsonConverterFactory.create()).build();
-        mRequestModel = mRetrofit.create(GetHomeRequest.class);
+//
+////        mRetrofit = new Retrofit.Builder().baseUrl(Constant.mHomePoUrl)
+////                .addConverterFactory(GsonConverterFactory.create()).build();
+//        mRequestModel = mRetrofit.create(GetHomeRequest.class);
+//
+//        Retrofit mAppRetrofit = new Retrofit.Builder().baseUrl(Constant.mAppInfoUrl).client(client)
+//                .addConverterFactory(GsonConverterFactory.create()).build();
+//        mAppRequestModel = mAppRetrofit.create(CheckVersionRequest.class);
 
-        Retrofit mAppRetrofit = new Retrofit.Builder().baseUrl(Constant.mAppInfoUrl).client(client)
-                .addConverterFactory(GsonConverterFactory.create()).build();
-        mAppRequestModel = mAppRetrofit.create(CheckVersionRequest.class);
+        mRequestModel = initRetrofit(Constant.mHomePoUrl,GetHomeRequest.class);
+        mAppRequestModel = initRetrofit(Constant.mAppInfoUrl,CheckVersionRequest.class);
     }
+
 
     @Override
     public PoMeiTuModel getModel() {

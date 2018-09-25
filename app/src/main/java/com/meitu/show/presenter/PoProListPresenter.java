@@ -6,6 +6,7 @@ import android.util.Log;
 import com.meitu.show.Constant;
 import com.meitu.show.model.PoProlistModel;
 import com.meitu.show.presenter.base.BasePresenter;
+import com.meitu.show.request.GetHomeRequest;
 import com.meitu.show.request.GetProlistRequest;
 import com.meitu.show.viewinf.ProListViewInterface;
 
@@ -34,32 +35,35 @@ public class PoProListPresenter extends BasePresenter<ProListViewInterface, PoPr
 //    private int pageNo = 1;
 
     public PoProListPresenter() {
-        OkHttpClient client = null;
-        if (Constant.debug) {
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-                @Override
-                public void log(String message) {
-                    //打印retrofit日志
-                    Log.e("RetrofitLog","retrofitBack = "+message);
-                }
-            });
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        super();
+//        OkHttpClient client = null;
+//        if (Constant.debug) {
+//            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+//                @Override
+//                public void log(String message) {
+//                    //打印retrofit日志
+//                    Log.e("RetrofitLog","retrofitBack = "+message);
+//                }
+//            });
+//            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//
+//            client = new OkHttpClient.Builder()
+//                    .addInterceptor(loggingInterceptor)
+//                    .connectTimeout(5000, TimeUnit.SECONDS)
+//                    .readTimeout(5000, TimeUnit.SECONDS)
+//                    .writeTimeout(5000, TimeUnit.SECONDS)
+//                    .build();
+//        }
+//
+//        Retrofit.Builder builder = new Retrofit.Builder();
+//        builder.baseUrl(Constant.mHomePoUrl).addConverterFactory(GsonConverterFactory.create());
+//        if (Constant.debug) {
+//            builder.client(client);
+//        }
+//        Retrofit mRetrofit = builder.build();
+//        mRequestModel = mRetrofit.create(GetProlistRequest.class);
 
-            client = new OkHttpClient.Builder()
-                    .addInterceptor(loggingInterceptor)
-                    .connectTimeout(5000, TimeUnit.SECONDS)
-                    .readTimeout(5000, TimeUnit.SECONDS)
-                    .writeTimeout(5000, TimeUnit.SECONDS)
-                    .build();
-        }
-
-        Retrofit.Builder builder = new Retrofit.Builder();
-        builder.baseUrl(Constant.mHomePoUrl).addConverterFactory(GsonConverterFactory.create());
-        if (Constant.debug) {
-            builder.client(client);
-        }
-        Retrofit mRetrofit = builder.build();
-        mRequestModel = mRetrofit.create(GetProlistRequest.class);
+        mRequestModel = initRetrofit(Constant.mHomePoUrl,GetProlistRequest.class);
     }
 
     @Override

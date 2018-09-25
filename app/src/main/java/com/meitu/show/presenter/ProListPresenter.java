@@ -53,9 +53,10 @@ public class ProListPresenter extends BasePresenter<ProListViewInterface,Prolist
 //                .writeTimeout(5000, TimeUnit.SECONDS)
 //                .build();
 
-        Retrofit mRetrofit = new Retrofit.Builder().baseUrl(Constant.mHomeUrl)/*.client(client)*/
-                .addConverterFactory(GsonConverterFactory.create()).build();
-        mRequestModel = mRetrofit.create(GetProlistRequest.class);
+//        Retrofit mRetrofit = new Retrofit.Builder().baseUrl(Constant.mHomeUrl)/*.client(client)*/
+//                .addConverterFactory(GsonConverterFactory.create()).build();
+//        mRequestModel = mRetrofit.create(GetProlistRequest.class);
+        mRequestModel = initRetrofit(Constant.mHomeUrl,GetProlistRequest.class);
     }
 
     @Override
