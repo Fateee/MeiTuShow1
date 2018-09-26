@@ -1,16 +1,17 @@
-package com.meitu.show.activitys.home.activity;
+package com.meitu.show.fragments;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.view.View;
 import android.widget.TextView;
 
-import com.meitu.show.BaseActivity;
+import com.meitu.show.BaseFragment;
 import com.meitu.show.R;
 import com.meitu.show.activitys.home.adapter.HomeAdapter;
-import com.meitu.show.model.HomeMeituModel;
 import com.meitu.show.model.PoMeiTuModel;
-import com.meitu.show.presenter.HomePresenter;
+import com.meitu.show.presenter.CategoryPresenter;
+import com.meitu.show.presenter.ChosenPresenter;
 import com.meitu.show.view.SimpleToolbar;
 import com.meitu.show.viewinf.HomeViewInterface;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
@@ -18,12 +19,11 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity<HomePresenter, MainActivity> implements HomeViewInterface {
-
+public class ChosenFragment extends BaseFragment<ChosenPresenter, LatestFragment> implements HomeViewInterface {
     @BindView(R.id.swipe_grid_list)
     SwipeMenuRecyclerView swipeGridList;
+
     @BindView(R.id.swipe_Refresh_grid_list)
     SwipeRefreshLayout swipeRefreshGridList;
 
@@ -36,13 +36,12 @@ public class MainActivity extends BaseActivity<HomePresenter, MainActivity> impl
     @BindView(R.id.simple_toolbar)
     SimpleToolbar simpleToolbar;
 
-    private HomePresenter mHomePresenter;
 
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
         @Override
         public void onLoadMore() {
             // 该加载更多啦。
-            mHomePresenter.getHomeMeiTuList(false);
+            mChosenPresenter.getChosenMeiTuList(false);
 
             // 如果加载失败调用下面的方法，传入errorCode和errorMessage。
             // errorCode随便传，你自定义LoadMoreView时可以根据errorCode判断错误类型。
@@ -56,43 +55,43 @@ public class MainActivity extends BaseActivity<HomePresenter, MainActivity> impl
             initData();
         }
     };
+    private ChosenPresenter mChosenPresenter;
     private HomeAdapter mHomeAdapter;
 
+    public static ChosenFragment getInstance(String schema) {
+        ChosenFragment fragment = new ChosenFragment();
+        Bundle args = new Bundle();
+        args.putString(schema, schema);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        request();
-        initView();
-        initData();
+    protected void initData() {
+        mChosenPresenter.getChosenMeiTuList(true);
     }
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_main;
+        return R.layout.common_mainlist;
     }
 
-    private void initData() {
-        mHomePresenter.getHomeMeiTuList(true);
-        mHomePresenter.getAppNewestInfo();
+    @Override
+    protected ChosenPresenter getPresenter() {
+        mChosenPresenter = new ChosenPresenter();
+        return mChosenPresenter;
     }
 
-    private void initView() {
-        txtMainTitle.setTextColor(getResources().getColor(R.color.black));
+    @Override
+    protected void initViews(View view) {
+        simpleToolbar.setVisibility(View.GONE);
         swipeRefreshGridList.setOnRefreshListener(mReefreshListener);
         swipeGridList.useDefaultLoadMore();
         swipeGridList.setLoadMoreListener(mLoadMoreListener);
-        GridLayoutManager mGridLayoutManager = new GridLayoutManager(this, 1);
+        GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
         swipeGridList.setLayoutManager(mGridLayoutManager);
-        mHomeAdapter = new HomeAdapter(this);
+        mHomeAdapter = new HomeAdapter(getActivity());
         swipeGridList.setAdapter(mHomeAdapter);
-    }
-
-    private static final String TAG = "MainActivity";
-
-    @Override
-    protected HomePresenter getPresenter() {
-        mHomePresenter = new HomePresenter();
-        return mHomePresenter;
     }
 
     @Override

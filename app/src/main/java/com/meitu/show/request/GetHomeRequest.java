@@ -23,6 +23,11 @@ public interface GetHomeRequest {
     @GET("list?pageNum=1")
     Call<HomeMeituModel> getHomeMeitu1();
 
+
+    /**
+     * https://www.poshow18.com/spacial/list?type=2&key=views&size=10&index=1 //精选
+     * https://www.poshow18.com/spacial/list?type=1&key=views&size=10&index=1 //专辑
+     */
     @GET("spacial/list")
     Call<PoMeiTuModel> getPoMeitu(@QueryMap Map<String, String> params);
 }

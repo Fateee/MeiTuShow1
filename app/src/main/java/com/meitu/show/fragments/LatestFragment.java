@@ -1,7 +1,9 @@
 package com.meitu.show.fragments;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,6 +12,7 @@ import com.meitu.show.R;
 import com.meitu.show.activitys.home.adapter.HomeAdapter;
 import com.meitu.show.model.PoMeiTuModel;
 import com.meitu.show.presenter.HomePresenter;
+import com.meitu.show.view.SimpleToolbar;
 import com.meitu.show.viewinf.HomeViewInterface;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
@@ -30,6 +33,9 @@ public class LatestFragment extends BaseFragment<HomePresenter, LatestFragment> 
 
     @BindView(R.id.txt_main_title)
     TextView txtMainTitle;
+
+    @BindView(R.id.simple_toolbar)
+    SimpleToolbar simpleToolbar;
 
     private HomePresenter mHomePresenter;
 
@@ -54,6 +60,14 @@ public class LatestFragment extends BaseFragment<HomePresenter, LatestFragment> 
         }
     };
 
+    public static LatestFragment getInstance(String schema) {
+        LatestFragment fragment = new LatestFragment();
+        Bundle args = new Bundle();
+        args.putString(schema, schema);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     protected int getContentView() {
         return R.layout.common_mainlist;
@@ -68,19 +82,20 @@ public class LatestFragment extends BaseFragment<HomePresenter, LatestFragment> 
     @Override
     protected void initData() {
         mHomePresenter.getHomeMeiTuList(true);
-        mHomePresenter.getAppNewestInfo();
     }
 
     @Override
     protected void initViews(View view) {
-        txtMainTitle.setTextColor(getResources().getColor(R.color.black));
+        simpleToolbar.setVisibility(View.GONE);
         swipeRefreshGridList.setOnRefreshListener(mReefreshListener);
         swipeGridList.useDefaultLoadMore();
         swipeGridList.setLoadMoreListener(mLoadMoreListener);
-        GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 1);
+        GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
         swipeGridList.setLayoutManager(mGridLayoutManager);
         mHomeAdapter = new HomeAdapter(getActivity());
         swipeGridList.setAdapter(mHomeAdapter);
+
+        mHomePresenter.getAppNewestInfo();
     }
 
     @Override

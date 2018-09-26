@@ -12,6 +12,8 @@ import com.meitu.show.presenter.base.BaseViewInf;
 
 import org.greenrobot.eventbus.EventBus;
 
+import butterknife.ButterKnife;
+
 public abstract class BaseFragment<P extends BasePresenter, V extends BaseViewInf> extends Fragment {
 
     private P mP;
@@ -19,7 +21,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseViewIn
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
         mP = getPresenter();
         if (mP == null) return;
         mP.attach((V) this);
@@ -29,6 +31,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseViewIn
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getContentView(), container, false);
+        ButterKnife.bind(this,view);
         return view;
     }
 
@@ -50,7 +53,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseViewIn
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
         mP.deAttach();
     }
 

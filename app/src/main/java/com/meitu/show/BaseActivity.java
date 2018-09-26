@@ -30,6 +30,7 @@ public abstract class BaseActivity <P extends BasePresenter, V extends BaseViewI
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentView());
+        ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         mP = getPresenter();
         if (mP == null) return;
@@ -44,6 +45,7 @@ public abstract class BaseActivity <P extends BasePresenter, V extends BaseViewI
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        if (mP == null) return;
         mP.deAttach();
     }
 

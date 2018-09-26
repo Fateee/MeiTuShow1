@@ -2,6 +2,7 @@ package com.meitu.show.utils;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.view.Display;
 
 /**
  * 项目名:    AppUpdate

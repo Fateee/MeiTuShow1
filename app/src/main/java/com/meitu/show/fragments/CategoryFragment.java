@@ -1,5 +1,6 @@
 package com.meitu.show.fragments;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
@@ -8,13 +9,19 @@ import android.widget.TextView;
 import com.meitu.show.BaseFragment;
 import com.meitu.show.R;
 import com.meitu.show.activitys.home.adapter.HomeAdapter;
+import com.meitu.show.model.PoMeiTuModel;
+import com.meitu.show.presenter.CategoryPresenter;
+import com.meitu.show.presenter.HomePresenter;
 import com.meitu.show.presenter.base.BasePresenter;
 import com.meitu.show.view.SimpleToolbar;
+import com.meitu.show.viewinf.HomeViewInterface;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
+
+import java.util.List;
 
 import butterknife.BindView;
 
-public class CategoryFragment extends BaseFragment {
+public class CategoryFragment extends BaseFragment<CategoryPresenter, LatestFragment> implements HomeViewInterface {
 
     @BindView(R.id.swipe_grid_list)
     SwipeMenuRecyclerView swipeGridList;
@@ -35,7 +42,7 @@ public class CategoryFragment extends BaseFragment {
         @Override
         public void onLoadMore() {
             // 该加载更多啦。
-            mHomePresenter.getHomeMeiTuList(false);
+            mCategoryPresenter.getCategoryMeiTuList(false);
 
             // 如果加载失败调用下面的方法，传入errorCode和errorMessage。
             // errorCode随便传，你自定义LoadMoreView时可以根据errorCode判断错误类型。
@@ -49,10 +56,20 @@ public class CategoryFragment extends BaseFragment {
             initData();
         }
     };
+    private CategoryPresenter mCategoryPresenter;
+    private HomeAdapter mHomeAdapter;
+
+    public static CategoryFragment getInstance(String schema) {
+        CategoryFragment fragment = new CategoryFragment();
+        Bundle args = new Bundle();
+        args.putString(schema, schema);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     protected void initData() {
-
+        mCategoryPresenter.getCategoryMeiTuList(true);
     }
 
     @Override
@@ -61,13 +78,14 @@ public class CategoryFragment extends BaseFragment {
     }
 
     @Override
-    protected BasePresenter getPresenter() {
-        return null;
+    protected CategoryPresenter getPresenter() {
+        mCategoryPresenter = new CategoryPresenter();
+        return mCategoryPresenter;
     }
 
     @Override
     protected void initViews(View view) {
-        txtMainTitle.setTextColor(getResources().getColor(R.color.black));
+        simpleToolbar.setVisibility(View.GONE);
         swipeRefreshGridList.setOnRefreshListener(mReefreshListener);
         swipeGridList.useDefaultLoadMore();
         swipeGridList.setLoadMoreListener(mLoadMoreListener);
@@ -75,5 +93,31 @@ public class CategoryFragment extends BaseFragment {
         swipeGridList.setLayoutManager(mGridLayoutManager);
         mHomeAdapter = new HomeAdapter(getActivity());
         swipeGridList.setAdapter(mHomeAdapter);
+    }
+
+    @Override
+    public void showLoading() {
+        swipeRefreshGridList.setRefreshing(true);
+    }
+
+    @Override
+    public void dismissLoading() {
+        swipeRefreshGridList.setRefreshing(false);
+    }
+
+    @Override
+    public void showErrorView() {
+
+    }
+
+    @Override
+    public void notifyHomeUiWithData(List<PoMeiTuModel.ContentBean> list, boolean refresh) {
+        if (list == null) return;
+        if (swipeRefreshGridList.isRefreshing()) swipeRefreshGridList.setRefreshing(false);
+        mHomeAdapter.refreshUI(list, refresh);
+        // 数据完更多数据，一定要调用这个方法。
+        // 第一个参数：表示此次数据是否为空。
+        // 第二个参数：表示是否还有更多数据。
+        swipeGridList.loadMoreFinish(list.size() == 0, true);
     }
 }

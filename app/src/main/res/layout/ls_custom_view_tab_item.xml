@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_tab_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/search_tab_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="0.5dp"
+            android:paddingRight="0.5dp"
+            android:textColor="#999999"
+            android:textSize="15sp"
+            tools:text="商品" />
+
+        <View
+            android:id="@+id/search_tab_line"
+            android:layout_width="wrap_content"
+            android:layout_height="2.5dp"
+            android:layout_alignLeft="@id/search_tab_tv"
+            android:layout_alignRight="@id/search_tab_tv"
+            android:layout_below="@id/search_tab_tv"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/ls_circle_1_red"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+</LinearLayout>

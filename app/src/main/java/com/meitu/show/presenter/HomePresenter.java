@@ -35,7 +35,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HomePresenter extends BasePresenter<HomeViewInterface,PoMeiTuModel> implements Callback<PoMeiTuModel> {
 
     private final CheckVersionRequest mAppRequestModel;
-    private Retrofit mRetrofit;
     private final GetHomeRequest mRequestModel;
     private int pageNo = 1;
     private int pageNum = 10;
@@ -100,7 +99,7 @@ public class HomePresenter extends BasePresenter<HomeViewInterface,PoMeiTuModel>
         List<PoMeiTuModel.ContentBean> dataList = response.body().getContent();
         if (homeView != null ) {
             homeView.dismissLoading();
-            homeView.notifyHomeUiWithData(dataList,pageNo > 1 ? false:true);
+            homeView.notifyHomeUiWithData(dataList,pageNo > 2 ? false:true);
         }
     }
 
