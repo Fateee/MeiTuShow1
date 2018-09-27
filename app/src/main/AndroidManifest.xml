@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data android:value="5baca453b465f56a310000da" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>
+
         <activity
             android:name=".activitys.home.activity.HomeActivity"
             android:screenOrientation="portrait">
