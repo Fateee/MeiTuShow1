@@ -31,14 +31,14 @@ import java.util.List;
 
 public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
 
-    private int[] mPlaceHolders = new int[] {R.color.CBBDEFB,R.color.CC5CAE9,R.color.CD8D8D8,R.color.CDCEDC8,R.color.CFDEFBA};
+    private int[] mPlaceHolders = new int[]{R.color.CBBDEFB, R.color.CC5CAE9, R.color.CD8D8D8, R.color.CDCEDC8, R.color.CFDEFBA};
     private ArrayList<T> mDataList;
     private Context mContext;
     private View.OnClickListener mProlistListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             int imgId = (int) v.getTag(R.id.id_one);
-            ProfileListActivity.startActivity(mContext,imgId);
+            ProfileListActivity.startActivity(mContext, imgId);
         }
     };
     private int mItemWidth;
@@ -46,14 +46,15 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
         @Override
         public void onClick(View v) {
             int pos = (int) v.getTag(R.id.id_one);
-            startActivity(mContext,pos,mDataList);
+            startActivity(mContext, pos, mDataList);
         }
     };
+    private int mLatestType;
 
-    public  void startActivity(Context mContext, int pos, ArrayList<T> mDataList) {
+    public void startActivity(Context mContext, int pos, ArrayList<T> mDataList) {
         Intent intent = new Intent(mContext, PhotoViewActivity.class);
-        intent.putExtra(PhotoViewActivity.NOWPOS,pos);
-        intent.putExtra(PhotoViewActivity.DATALIST,mDataList);
+        intent.putExtra(PhotoViewActivity.NOWPOS, pos);
+        intent.putExtra(PhotoViewActivity.DATALIST, mDataList);
         mContext.startActivity(intent);
     }
 
@@ -76,7 +77,7 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
             url = ((HomeMeituModel.Content.DataDetail) temp).getImg();
             if (TextUtils.isEmpty(url)) return;
             String link = ((HomeMeituModel.Content.DataDetail) temp).getLink();
-            holder.mHomeItemIV.setTag(R.id.id_one,link);
+            holder.mHomeItemIV.setTag(R.id.id_one, link);
             holder.mHomeItemIV.setOnClickListener(mProlistListener);
         }
         if (temp instanceof ProlistModel.ProlistContent.DataDetail) {
@@ -86,31 +87,35 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
             layoutParams.width = mItemWidth;
             layoutParams.height = mItemWidth;
             holder.mHomeItemIV.setLayoutParams(layoutParams);
-            holder.itemView.setPadding(3,3,3,3);
-            holder.mHomeItemIV.setTag(R.id.id_one,position);
+            holder.itemView.setPadding(3, 3, 3, 3);
+            holder.mHomeItemIV.setTag(R.id.id_one, position);
             holder.mHomeItemIV.setOnClickListener(mDetailListener);
         } else if (temp instanceof PoMeiTuModel.ContentBean) {
-            url = Constant.mHomePoUrl+((PoMeiTuModel.ContentBean)temp).getCover();
+            PoMeiTuModel.ContentBean mPicBean = (PoMeiTuModel.ContentBean) temp;
+            url = Constant.mHomePoUrl + mPicBean.getCover();
             if (TextUtils.isEmpty(url)) return;
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mHomeItemIV.getLayoutParams();
-            layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
-            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-            holder.mHomeItemIV.setLayoutParams(layoutParams);
-            int linkId = ((PoMeiTuModel.ContentBean)temp).getId();
-            holder.mHomeItemIV.setTag(R.id.id_one,linkId);
+//            if (mLatestType == 1) {
+//                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mHomeItemIV.getLayoutParams();
+//                layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
+//                layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+//                holder.mHomeItemIV.setLayoutParams(layoutParams);
+//            }
+            initCoverWH(holder.mHomeItemIV, mPicBean.getWidth(), mPicBean.getHeight());
+            int linkId = ((PoMeiTuModel.ContentBean) temp).getId();
+            holder.mHomeItemIV.setTag(R.id.id_one, linkId);
             holder.mHomeItemIV.setOnClickListener(mProlistListener);
         } else if (temp instanceof PoProlistModel.ContentBean) {
-            url = Constant.mHomePoUrl+((PoProlistModel.ContentBean)temp).getUrl();
+            url = Constant.mHomePoUrl + ((PoProlistModel.ContentBean) temp).getUrl();
             if (TextUtils.isEmpty(url)) return;
             ViewGroup.LayoutParams layoutParams = holder.mHomeItemIV.getLayoutParams();
             layoutParams.width = mItemWidth;
             layoutParams.height = mItemWidth;
             holder.mHomeItemIV.setLayoutParams(layoutParams);
-            holder.itemView.setPadding(3,3,3,3);
-            holder.mHomeItemIV.setTag(R.id.id_one,position);
+            holder.itemView.setPadding(3, 3, 3, 3);
+            holder.mHomeItemIV.setTag(R.id.id_one, position);
             holder.mHomeItemIV.setOnClickListener(mDetailListener);
         }
-        int index=(int)(Math.random()*mPlaceHolders.length);
+        int index = (int) (Math.random() * mPlaceHolders.length);
         int nowHolder = mPlaceHolders[index];
         Glide.with(mContext).load(url).placeholder(nowHolder).centerCrop().into(holder.mHomeItemIV);
     }
@@ -130,5 +135,25 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
 
     public void setItemWidth(int mItemWidth) {
         this.mItemWidth = mItemWidth;
+    }
+
+    public void setType(int latestType) {
+        mLatestType = latestType;
+    }
+
+    private void initCoverWH(ImageView img, int coverWidth, int coverHeight) {
+        if (coverWidth == 0 || coverHeight == 0) return;
+        android.widget.LinearLayout.LayoutParams coverImgParam = (android.widget.LinearLayout.LayoutParams) img.getLayoutParams();
+        float itemWidth;
+        //列表左右边距各位8 中间间距为7 8+7+8 = 23
+        if (mLatestType == 1) {
+            itemWidth = (ScreenUtil.getWith(mContext) - ScreenUtil.dip2px(mContext, 24f));
+        } else {
+            itemWidth = (ScreenUtil.getWith(mContext) - ScreenUtil.dip2px(mContext, 34f))/2;
+        }
+        coverImgParam.width = (int) itemWidth;
+        float scale = (itemWidth + 0f) / coverWidth;
+        coverImgParam.height = (int) (coverHeight * scale);
+        img.setLayoutParams(coverImgParam);
     }
 }

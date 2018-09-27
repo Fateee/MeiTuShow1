@@ -22,6 +22,7 @@ import butterknife.BindView;
 
 public class LatestFragment extends BaseFragment<HomePresenter, LatestFragment> implements HomeViewInterface {
 
+    public static final int LATEST_TYPE = 1;
     @BindView(R.id.swipe_grid_list)
     SwipeMenuRecyclerView swipeGridList;
 
@@ -90,9 +91,10 @@ public class LatestFragment extends BaseFragment<HomePresenter, LatestFragment> 
         swipeRefreshGridList.setOnRefreshListener(mReefreshListener);
         swipeGridList.useDefaultLoadMore();
         swipeGridList.setLoadMoreListener(mLoadMoreListener);
-        GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
+        GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 1);
         swipeGridList.setLayoutManager(mGridLayoutManager);
         mHomeAdapter = new HomeAdapter(getActivity());
+        mHomeAdapter.setType(LATEST_TYPE);
         swipeGridList.setAdapter(mHomeAdapter);
 
         mHomePresenter.getAppNewestInfo();

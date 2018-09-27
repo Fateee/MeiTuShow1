@@ -54,6 +54,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseViewIn
     public void onDestroy() {
         super.onDestroy();
 //        EventBus.getDefault().unregister(this);
+        if (mP == null) return;
         mP.deAttach();
     }
 
