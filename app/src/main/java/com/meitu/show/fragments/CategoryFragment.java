@@ -15,6 +15,7 @@ import com.meitu.show.presenter.HomePresenter;
 import com.meitu.show.presenter.base.BasePresenter;
 import com.meitu.show.view.SimpleToolbar;
 import com.meitu.show.viewinf.HomeViewInterface;
+import com.umeng.analytics.MobclickAgent;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.List;
@@ -22,6 +23,8 @@ import java.util.List;
 import butterknife.BindView;
 
 public class CategoryFragment extends BaseFragment<CategoryPresenter, LatestFragment> implements HomeViewInterface {
+
+    public static final String TAG = "CategoryFragment";
 
     @BindView(R.id.swipe_grid_list)
     SwipeMenuRecyclerView swipeGridList;
@@ -92,6 +95,7 @@ public class CategoryFragment extends BaseFragment<CategoryPresenter, LatestFrag
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
         swipeGridList.setLayoutManager(mGridLayoutManager);
         mHomeAdapter = new HomeAdapter(getActivity());
+        mHomeAdapter.setViewType(CATEGORY_TYPE);
         swipeGridList.setAdapter(mHomeAdapter);
     }
 
@@ -119,5 +123,17 @@ public class CategoryFragment extends BaseFragment<CategoryPresenter, LatestFrag
         // 第一个参数：表示此次数据是否为空。
         // 第二个参数：表示是否还有更多数据。
         swipeGridList.loadMoreFinish(list.size() == 0, true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(TAG);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(TAG);
     }
 }

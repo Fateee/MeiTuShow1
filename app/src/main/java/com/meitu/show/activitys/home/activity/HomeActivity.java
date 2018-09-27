@@ -23,6 +23,7 @@ import com.meitu.show.fragments.FragmentListAdapter;
 import com.meitu.show.fragments.LatestFragment;
 import com.meitu.show.presenter.HomePresenter;
 import com.meitu.show.presenter.base.BasePresenter;
+import com.umeng.analytics.MobclickAgent;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
@@ -178,5 +179,15 @@ public class HomeActivity extends BaseActivity {
             tabUnSelect.setText(tab.getText());
             tabUnSelect.setTextColor(Color.parseColor("#999999"));
         }
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(TAG);
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(TAG);
     }
 }

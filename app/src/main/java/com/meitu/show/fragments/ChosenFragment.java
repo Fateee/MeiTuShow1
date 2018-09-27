@@ -14,6 +14,7 @@ import com.meitu.show.presenter.CategoryPresenter;
 import com.meitu.show.presenter.ChosenPresenter;
 import com.meitu.show.view.SimpleToolbar;
 import com.meitu.show.viewinf.HomeViewInterface;
+import com.umeng.analytics.MobclickAgent;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class ChosenFragment extends BaseFragment<ChosenPresenter, LatestFragment
     @BindView(R.id.simple_toolbar)
     SimpleToolbar simpleToolbar;
 
+    public static final String TAG = "ChosenFragment";
 
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
         @Override
@@ -91,6 +93,7 @@ public class ChosenFragment extends BaseFragment<ChosenPresenter, LatestFragment
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
         swipeGridList.setLayoutManager(mGridLayoutManager);
         mHomeAdapter = new HomeAdapter(getActivity());
+        mHomeAdapter.setViewType(CHOSEN_TYPE);
         swipeGridList.setAdapter(mHomeAdapter);
     }
 
@@ -118,5 +121,17 @@ public class ChosenFragment extends BaseFragment<ChosenPresenter, LatestFragment
         // 第一个参数：表示此次数据是否为空。
         // 第二个参数：表示是否还有更多数据。
         swipeGridList.loadMoreFinish(list.size() == 0, true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(TAG);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(TAG);
     }
 }

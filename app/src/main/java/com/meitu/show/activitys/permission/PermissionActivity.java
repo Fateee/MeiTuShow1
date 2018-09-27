@@ -17,6 +17,7 @@ import com.meitu.show.service.DownloadService;
 import com.meitu.show.utils.Constant;
 import com.meitu.show.utils.LogUtil;
 import com.meitu.show.utils.PermissionUtil;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 项目名:    AppUpdate
@@ -80,5 +81,17 @@ public class PermissionActivity extends AppCompatActivity {
         intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.fromParts("package", context.getPackageName(), null));
         context.startActivity(intent);
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(TAG);
+        MobclickAgent.onResume(this); //统计时长
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(TAG);
+        MobclickAgent.onPause(this);
     }
 }

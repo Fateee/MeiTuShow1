@@ -17,6 +17,7 @@ import com.meitu.show.presenter.PoProListPresenter;
 import com.meitu.show.presenter.ProListPresenter;
 import com.meitu.show.view.SimpleToolbar;
 import com.meitu.show.viewinf.ProListViewInterface;
+import com.umeng.analytics.MobclickAgent;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.List;
@@ -32,6 +33,7 @@ import butterknife.OnClick;
 public class ProfileListActivity extends BaseActivity<PoProListPresenter, ProfileListActivity> implements ProListViewInterface {
 
     private static String URL_ID_PARAM = "URL_PARAM";
+    private static String VIEW_TYPE = "VIEW_TYPE";
     @BindView(R.id.swipe_grid_list)
     SwipeMenuRecyclerView swipeGridList;
     @BindView(R.id.swipe_Refresh_grid_list)
@@ -67,10 +69,13 @@ public class ProfileListActivity extends BaseActivity<PoProListPresenter, Profil
     };
     private int mImgId;
     private int mItemWidth;
+    private int mViewType;
+    private static final String TAG = "ProfileListActivity";
 
-    public static void startActivity(Context mContext, int id) {
+    public static void startActivity(Context mContext, int id, int viewType) {
         Intent intent = new Intent(mContext, ProfileListActivity.class);
         intent.putExtra(URL_ID_PARAM, id);
+        intent.putExtra(VIEW_TYPE, viewType);
         mContext.startActivity(intent);
     }
 
@@ -90,6 +95,7 @@ public class ProfileListActivity extends BaseActivity<PoProListPresenter, Profil
 
     private void prepareData() {
         mImgId = getIntent().getIntExtra(URL_ID_PARAM,0);
+        mViewType = getIntent().getIntExtra(VIEW_TYPE,0);
     }
 
     private void initData() {
@@ -107,10 +113,10 @@ public class ProfileListActivity extends BaseActivity<PoProListPresenter, Profil
         mHomeAdapter = new HomeAdapter<>(this);
         mItemWidth = getWindowManager().getDefaultDisplay().getWidth() / 3;
         mHomeAdapter.setItemWidth(mItemWidth);
+        mHomeAdapter.setProfileListId(mImgId);
+        mHomeAdapter.setViewType(mViewType);
         swipeGridList.setAdapter(mHomeAdapter);
     }
-
-    private static final String TAG = "MainActivity";
 
     @Override
     protected PoProListPresenter getPresenter() {
@@ -167,5 +173,15 @@ public class ProfileListActivity extends BaseActivity<PoProListPresenter, Profil
                 finish();
                 break;
         }
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(TAG);
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(TAG);
     }
 }

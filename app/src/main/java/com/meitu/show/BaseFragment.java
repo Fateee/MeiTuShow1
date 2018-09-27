@@ -17,7 +17,9 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment<P extends BasePresenter, V extends BaseViewInf> extends Fragment {
 
     private P mP;
-
+    public static final int LATEST_TYPE = 1;
+    public static final int CATEGORY_TYPE = 2;
+    public static final int CHOSEN_TYPE = 3;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

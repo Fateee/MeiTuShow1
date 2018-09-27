@@ -39,5 +39,13 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.android.support:design:26.0.0-beta1'
     implementation 'com.android.support:support-v4:26.0.0-beta1'
-    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.umeng.sdk:analytics:latest.integration'
+    compile 'com.umeng.sdk:common:latest.integration'
+//    compile 'com.umeng.sdk:common:1.5.0'
+//    compile 'com.umeng.sdk:analytics:7.5.0'
+
+    //PushSDK必须依赖utdid库，所以需要加入对应依赖
+    compile 'com.umeng.sdk:utdid:1.1.5.3'
+    //PushSDK
+    compile 'com.umeng.sdk:push:4.2.0'
 }

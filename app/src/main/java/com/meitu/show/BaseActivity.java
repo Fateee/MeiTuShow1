@@ -11,6 +11,8 @@ import com.meitu.show.model.eventbus.MessageEvent;
 import com.meitu.show.model.version.AppVerInfo;
 import com.meitu.show.presenter.base.BasePresenter;
 import com.meitu.show.presenter.base.BaseViewInf;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -32,6 +34,7 @@ public abstract class BaseActivity <P extends BasePresenter, V extends BaseViewI
         setContentView(getContentView());
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
+        PushAgent.getInstance(this).onAppStart();
         mP = getPresenter();
         if (mP == null) return;
         mP.attach((V)this);
@@ -64,5 +67,17 @@ public abstract class BaseActivity <P extends BasePresenter, V extends BaseViewI
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

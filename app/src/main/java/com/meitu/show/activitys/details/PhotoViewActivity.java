@@ -1,6 +1,5 @@
 package com.meitu.show.activitys.details;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -10,13 +9,12 @@ import android.widget.TextView;
 
 import com.meitu.show.R;
 import com.meitu.show.model.PoProlistModel;
-import com.meitu.show.model.ProlistModel;
 import com.meitu.show.view.MyImageAdapter;
 import com.meitu.show.view.PhotoViewPager;
 import com.meitu.show.view.SimpleToolbar;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +28,7 @@ import butterknife.OnClick;
 
 public class PhotoViewActivity extends AppCompatActivity {
 
-    public static final String TAG = PhotoViewActivity.class.getSimpleName();
+    private static final String TAG = "PhotoViewActivity";
     public static String NOWPOS = "NOWPOS";
     public static String DATALIST = "DATALIST";
     private int currentPosition;
@@ -92,6 +90,18 @@ public class PhotoViewActivity extends AppCompatActivity {
                 finish();
                 break;
         }
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(TAG);
+        MobclickAgent.onResume(this); //统计时长
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(TAG);
+        MobclickAgent.onPause(this);
     }
 
 }

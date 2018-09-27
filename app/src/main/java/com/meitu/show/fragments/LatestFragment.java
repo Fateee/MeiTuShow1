@@ -14,6 +14,7 @@ import com.meitu.show.model.PoMeiTuModel;
 import com.meitu.show.presenter.HomePresenter;
 import com.meitu.show.view.SimpleToolbar;
 import com.meitu.show.viewinf.HomeViewInterface;
+import com.umeng.analytics.MobclickAgent;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.List;
@@ -22,7 +23,8 @@ import butterknife.BindView;
 
 public class LatestFragment extends BaseFragment<HomePresenter, LatestFragment> implements HomeViewInterface {
 
-    public static final int LATEST_TYPE = 1;
+    public static final String TAG = "LatestFragment";
+
     @BindView(R.id.swipe_grid_list)
     SwipeMenuRecyclerView swipeGridList;
 
@@ -94,7 +96,7 @@ public class LatestFragment extends BaseFragment<HomePresenter, LatestFragment> 
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 1);
         swipeGridList.setLayoutManager(mGridLayoutManager);
         mHomeAdapter = new HomeAdapter(getActivity());
-        mHomeAdapter.setType(LATEST_TYPE);
+        mHomeAdapter.setViewType(LATEST_TYPE);
         swipeGridList.setAdapter(mHomeAdapter);
 
         mHomePresenter.getAppNewestInfo();
@@ -124,5 +126,17 @@ public class LatestFragment extends BaseFragment<HomePresenter, LatestFragment> 
         // 第一个参数：表示此次数据是否为空。
         // 第二个参数：表示是否还有更多数据。
         swipeGridList.loadMoreFinish(list.size() == 0, true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(TAG);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(TAG);
     }
 }

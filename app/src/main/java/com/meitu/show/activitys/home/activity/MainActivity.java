@@ -13,6 +13,7 @@ import com.meitu.show.model.PoMeiTuModel;
 import com.meitu.show.presenter.HomePresenter;
 import com.meitu.show.view.SimpleToolbar;
 import com.meitu.show.viewinf.HomeViewInterface;
+import com.umeng.analytics.MobclickAgent;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.List;
@@ -119,5 +120,15 @@ public class MainActivity extends BaseActivity<HomePresenter, MainActivity> impl
         // 第一个参数：表示此次数据是否为空。
         // 第二个参数：表示是否还有更多数据。
         swipeGridList.loadMoreFinish(list.size() == 0, true);
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(TAG);
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(TAG);
     }
 }
