@@ -1,6 +1,7 @@
 package com.meitu.show.presenter;
 
 import com.meitu.show.Constant;
+import com.meitu.show.model.CommonContentBean;
 import com.meitu.show.model.PoMeiTuModel;
 import com.meitu.show.presenter.base.BasePresenter;
 import com.meitu.show.request.GetHomeRequest;
@@ -51,7 +52,7 @@ public class ChosenPresenter extends BasePresenter<HomeViewInterface,PoMeiTuMode
         if (!"0".equals(status)) return;
         pageNo++;
         HomeViewInterface homeView = getView();
-        List<PoMeiTuModel.ContentBean> dataList = response.body().getContent();
+        List<CommonContentBean> dataList = response.body().getContent();
         if (homeView != null ) {
             homeView.dismissLoading();
             homeView.notifyHomeUiWithData(dataList,pageNo > 2 ? false:true);

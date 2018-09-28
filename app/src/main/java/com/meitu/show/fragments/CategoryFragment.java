@@ -9,10 +9,8 @@ import android.widget.TextView;
 import com.meitu.show.BaseFragment;
 import com.meitu.show.R;
 import com.meitu.show.activitys.home.adapter.HomeAdapter;
-import com.meitu.show.model.PoMeiTuModel;
+import com.meitu.show.model.CommonContentBean;
 import com.meitu.show.presenter.CategoryPresenter;
-import com.meitu.show.presenter.HomePresenter;
-import com.meitu.show.presenter.base.BasePresenter;
 import com.meitu.show.view.SimpleToolbar;
 import com.meitu.show.viewinf.HomeViewInterface;
 import com.umeng.analytics.MobclickAgent;
@@ -115,7 +113,7 @@ public class CategoryFragment extends BaseFragment<CategoryPresenter, LatestFrag
     }
 
     @Override
-    public void notifyHomeUiWithData(List<PoMeiTuModel.ContentBean> list, boolean refresh) {
+    public void notifyHomeUiWithData(List<CommonContentBean> list, boolean refresh) {
         if (list == null) return;
         if (swipeRefreshGridList.isRefreshing()) swipeRefreshGridList.setRefreshing(false);
         mHomeAdapter.refreshUI(list, refresh);

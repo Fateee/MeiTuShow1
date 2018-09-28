@@ -11,10 +11,10 @@ import android.widget.TextView;
 import com.meitu.show.BaseActivity;
 import com.meitu.show.R;
 import com.meitu.show.activitys.home.adapter.HomeAdapter;
+import com.meitu.show.model.CommonContentBean;
 import com.meitu.show.model.PoProlistModel;
 import com.meitu.show.model.ProlistModel;
 import com.meitu.show.presenter.PoProListPresenter;
-import com.meitu.show.presenter.ProListPresenter;
 import com.meitu.show.view.SimpleToolbar;
 import com.meitu.show.viewinf.ProListViewInterface;
 import com.umeng.analytics.MobclickAgent;
@@ -23,7 +23,6 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -32,8 +31,9 @@ import butterknife.OnClick;
 
 public class ProfileListActivity extends BaseActivity<PoProListPresenter, ProfileListActivity> implements ProListViewInterface {
 
-    private static String URL_ID_PARAM = "URL_PARAM";
-    private static String VIEW_TYPE = "VIEW_TYPE";
+    public static String URL_ID_PARAM = "URL_PARAM";
+    public static String BEAN_PARAM = "BEAN_PARAM";
+    public static String VIEW_TYPE = "VIEW_TYPE";
     @BindView(R.id.swipe_grid_list)
     SwipeMenuRecyclerView swipeGridList;
     @BindView(R.id.swipe_Refresh_grid_list)
@@ -68,13 +68,14 @@ public class ProfileListActivity extends BaseActivity<PoProListPresenter, Profil
         }
     };
     private int mImgId;
-    private int mItemWidth;
     private int mViewType;
     private static final String TAG = "ProfileListActivity";
+    private CommonContentBean mCommonContentBean;
 
-    public static void startActivity(Context mContext, int id, int viewType) {
+    public static void startActivity(Context mContext, CommonContentBean bean, int viewType) {
         Intent intent = new Intent(mContext, ProfileListActivity.class);
-        intent.putExtra(URL_ID_PARAM, id);
+        intent.putExtra(URL_ID_PARAM, bean.getId());
+        intent.putExtra(BEAN_PARAM, bean);
         intent.putExtra(VIEW_TYPE, viewType);
         mContext.startActivity(intent);
     }
@@ -82,7 +83,6 @@ public class ProfileListActivity extends BaseActivity<PoProListPresenter, Profil
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
         prepareData();
         initView();
         initData();
@@ -96,6 +96,7 @@ public class ProfileListActivity extends BaseActivity<PoProListPresenter, Profil
     private void prepareData() {
         mImgId = getIntent().getIntExtra(URL_ID_PARAM,0);
         mViewType = getIntent().getIntExtra(VIEW_TYPE,0);
+        mCommonContentBean = (CommonContentBean) getIntent().getSerializableExtra(BEAN_PARAM);
     }
 
     private void initData() {
@@ -104,6 +105,7 @@ public class ProfileListActivity extends BaseActivity<PoProListPresenter, Profil
 
     private void initView() {
         txtLeftTitle.setVisibility(View.VISIBLE);
+        txtMainTitle.setText(mCommonContentBean == null ? "": mCommonContentBean.getNameEn());
         swipeRefreshGridList.setOnRefreshListener(mReefreshListener);
         swipeGridList.useDefaultLoadMore();
         swipeGridList.setLoadMoreListener(mLoadMoreListener);
@@ -111,7 +113,7 @@ public class ProfileListActivity extends BaseActivity<PoProListPresenter, Profil
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(this, 3);
         swipeGridList.setLayoutManager(mGridLayoutManager);
         mHomeAdapter = new HomeAdapter<>(this);
-        mItemWidth = getWindowManager().getDefaultDisplay().getWidth() / 3;
+        int mItemWidth = getWindowManager().getDefaultDisplay().getWidth() / 3;
         mHomeAdapter.setItemWidth(mItemWidth);
         mHomeAdapter.setProfileListId(mImgId);
         mHomeAdapter.setViewType(mViewType);

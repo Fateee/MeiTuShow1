@@ -16,9 +16,11 @@ import com.meitu.show.BaseFragment;
 import com.meitu.show.Constant;
 import com.meitu.show.R;
 import com.meitu.show.activitys.details.PhotoViewActivity;
+import com.meitu.show.activitys.home.activity.CategoryListActivity;
 import com.meitu.show.fragments.CategoryFragment;
 import com.meitu.show.fragments.ChosenFragment;
 import com.meitu.show.fragments.LatestFragment;
+import com.meitu.show.model.CommonContentBean;
 import com.meitu.show.model.HomeMeituModel;
 import com.meitu.show.model.PoMeiTuModel;
 import com.meitu.show.model.PoProlistModel;
@@ -43,33 +45,40 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
     private View.OnClickListener mProlistListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String typeStr="";
+            CommonContentBean mPicBean = (CommonContentBean) v.getTag(R.id.id_one);
+            int imgId = mPicBean.getId();
+            String typeStr = "";
             switch (mType) {
                 case BaseFragment.LATEST_TYPE:
                     typeStr = LatestFragment.TAG;
+                    ProfileListActivity.startActivity(mContext, mPicBean, mType);
                     break;
                 case BaseFragment.CATEGORY_TYPE:
                     typeStr = CategoryFragment.TAG;
+                    CategoryListActivity.startActivity(mContext, mPicBean, mType);
                     break;
                 case BaseFragment.CHOSEN_TYPE:
                     typeStr = ChosenFragment.TAG;
+                    ProfileListActivity.startActivity(mContext, mPicBean, mType);
+                    break;
+                default:
+                    if (mContext instanceof CategoryListActivity)
+                        typeStr = CategoryListActivity.TAG;
+                    ProfileListActivity.startActivity(mContext, mPicBean, mType);
                     break;
             }
-            int imgId = (int) v.getTag(R.id.id_one);
 
-            HashMap<String,String> map = new HashMap<>();
-            map.put("view_type",typeStr);
-            map.put("imgId",imgId+"");
+            HashMap<String, String> map = new HashMap<>();
+            map.put("view_type", typeStr);
+            map.put("imgId", imgId + "");
             MobclickAgent.onEvent(mContext, "Click", map);
-
-            ProfileListActivity.startActivity(mContext, imgId,mType);
         }
     };
     private int mItemWidth;
     private View.OnClickListener mDetailListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String typeStr="";
+            String typeStr = "";
             switch (mType) {
                 case BaseFragment.LATEST_TYPE:
                     typeStr = LatestFragment.TAG;
@@ -83,10 +92,10 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
             }
             int pos = (int) v.getTag(R.id.id_one);
 
-            HashMap<String,String> map = new HashMap<>();
-            map.put("view_type",typeStr+"_profilelist");
-            map.put("imgId",mImgId+"");
-            map.put("pos",pos+"");
+            HashMap<String, String> map = new HashMap<>();
+            map.put("view_type", typeStr + "_profilelist");
+            map.put("imgId", mImgId + "");
+            map.put("pos", pos + "");
             MobclickAgent.onEvent(mContext, "Click", map);
 
             startActivity(mContext, pos, mDataList);
@@ -134,8 +143,8 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
             holder.itemView.setPadding(3, 3, 3, 3);
             holder.mHomeItemIV.setTag(R.id.id_one, position);
             holder.mHomeItemIV.setOnClickListener(mDetailListener);
-        } else if (temp instanceof PoMeiTuModel.ContentBean) {
-            PoMeiTuModel.ContentBean mPicBean = (PoMeiTuModel.ContentBean) temp;
+        } else if (temp instanceof CommonContentBean) {
+            CommonContentBean mPicBean = (CommonContentBean) temp;
             url = Constant.mHomePoUrl + mPicBean.getCover();
             if (TextUtils.isEmpty(url)) return;
 //            if (mLatestType == 1) {
@@ -145,8 +154,7 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
 //                holder.mHomeItemIV.setLayoutParams(layoutParams);
 //            }
             initCoverWH(holder.mHomeItemIV, mPicBean.getWidth(), mPicBean.getHeight());
-            int linkId = ((PoMeiTuModel.ContentBean) temp).getId();
-            holder.mHomeItemIV.setTag(R.id.id_one, linkId);
+            holder.mHomeItemIV.setTag(R.id.id_one, mPicBean);
             holder.mHomeItemIV.setOnClickListener(mProlistListener);
         } else if (temp instanceof PoProlistModel.ContentBean) {
             url = Constant.mHomePoUrl + ((PoProlistModel.ContentBean) temp).getUrl();
@@ -189,7 +197,7 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
         if (mType == 1) {
             itemWidth = (ScreenUtil.getWith(mContext) - ScreenUtil.dip2px(mContext, 24f));
         } else {
-            itemWidth = (ScreenUtil.getWith(mContext) - ScreenUtil.dip2px(mContext, 34f))/2;
+            itemWidth = (ScreenUtil.getWith(mContext) - ScreenUtil.dip2px(mContext, 34f)) / 2;
         }
         coverImgParam.width = (int) itemWidth;
         float scale = (itemWidth + 0f) / coverWidth;

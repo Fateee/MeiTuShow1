@@ -1,12 +1,19 @@
 package com.meitu.show.presenter;
 
 import com.meitu.show.Constant;
+import com.meitu.show.model.CategoryListModel;
 import com.meitu.show.model.CommonContentBean;
 import com.meitu.show.model.PoMeiTuModel;
-import com.meitu.show.presenter.base.BaseModelInf;
+import com.meitu.show.model.eventbus.EventConst;
+import com.meitu.show.model.eventbus.MessageEvent;
+import com.meitu.show.model.version.AppVerInfo;
 import com.meitu.show.presenter.base.BasePresenter;
+import com.meitu.show.request.CheckVersionRequest;
+import com.meitu.show.request.GetCategoryRequest;
 import com.meitu.show.request.GetHomeRequest;
 import com.meitu.show.viewinf.HomeViewInterface;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,39 +23,41 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CategoryPresenter extends BasePresenter<HomeViewInterface, PoMeiTuModel> implements Callback<PoMeiTuModel> {
 
+/**
+ * Created by Administrator on 2018/1/18.
+ */
+
+public class CategoryListPresenter extends BasePresenter<HomeViewInterface, CategoryListModel> implements Callback<CategoryListModel> {
+
+    private final GetCategoryRequest mRequestModel;
     private int pageNo = 1;
     private int pageNum = 10;
-    private final GetHomeRequest mRequestModel;
 
-    public CategoryPresenter() {
+    public CategoryListPresenter() {
         super();
-        mRequestModel = initRetrofit(Constant.mHomePoUrl, GetHomeRequest.class);
+        mRequestModel = initRetrofit(Constant.mHomePoUrl, GetCategoryRequest.class);
     }
+
 
     @Override
-    public PoMeiTuModel getModel() {
-        return new PoMeiTuModel();
+    public CategoryListModel getModel() {
+        return new CategoryListModel();
     }
 
-    //https://www.poshow18.com/spacial/list?type=1&key=views&size=10&index=1
-    public void getCategoryMeiTuList(boolean refresh) {
+    public void getCategoryMeiTuList(boolean refresh, int id) {
         if (refresh) {
             if (getView() != null) getView().showLoading();
             pageNo = 1;
         }
         Map<String, String> param = new HashMap<>();
-        param.put("type", "1");
-        param.put("key", "views");
-        param.put("size", String.valueOf(pageNum));
-        param.put("index", String.valueOf(pageNo));
-        Call<PoMeiTuModel> requestCallback = mRequestModel.getPoMeitu(param);
+        param.put("id", String.valueOf(id));
+        Call<CategoryListModel> requestCallback = mRequestModel.getCategoryList(param);
         requestCallback.enqueue(this);
     }
 
     @Override
-    public void onResponse(Call<PoMeiTuModel> call, Response<PoMeiTuModel> response) {
+    public void onResponse(Call<CategoryListModel> call, Response<CategoryListModel> response) {
         String status = response.body() != null ? response.body().getCode() : "";
         if (!"0".equals(status)) return;
         pageNo++;
@@ -61,7 +70,8 @@ public class CategoryPresenter extends BasePresenter<HomeViewInterface, PoMeiTuM
     }
 
     @Override
-    public void onFailure(Call<PoMeiTuModel> call, Throwable t) {
+    public void onFailure(Call<CategoryListModel> call, Throwable t) {
 
     }
+
 }

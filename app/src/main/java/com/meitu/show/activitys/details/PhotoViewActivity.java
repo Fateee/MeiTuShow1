@@ -59,7 +59,6 @@ public class PhotoViewActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        simpleToolbar.setBackgroundResource(R.color.black);
         txtLeftTitle.setVisibility(View.VISIBLE);
     }
 

@@ -3,14 +3,13 @@ package com.meitu.show.fragments;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
 import com.meitu.show.BaseFragment;
 import com.meitu.show.R;
 import com.meitu.show.activitys.home.adapter.HomeAdapter;
-import com.meitu.show.model.PoMeiTuModel;
+import com.meitu.show.model.CommonContentBean;
 import com.meitu.show.presenter.HomePresenter;
 import com.meitu.show.view.SimpleToolbar;
 import com.meitu.show.viewinf.HomeViewInterface;
@@ -118,7 +117,7 @@ public class LatestFragment extends BaseFragment<HomePresenter, LatestFragment> 
     }
 
     @Override
-    public void notifyHomeUiWithData(List<PoMeiTuModel.ContentBean> list, boolean refresh) {
+    public void notifyHomeUiWithData(List<CommonContentBean> list, boolean refresh) {
         if (list == null) return;
         if (swipeRefreshGridList.isRefreshing()) swipeRefreshGridList.setRefreshing(false);
         mHomeAdapter.refreshUI(list, refresh);

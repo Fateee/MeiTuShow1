@@ -3,6 +3,7 @@ package com.meitu.show.presenter;
 import android.util.Log;
 
 import com.meitu.show.Constant;
+import com.meitu.show.model.CommonContentBean;
 import com.meitu.show.model.PoMeiTuModel;
 import com.meitu.show.model.eventbus.EventConst;
 import com.meitu.show.model.eventbus.MessageEvent;
@@ -96,7 +97,7 @@ public class HomePresenter extends BasePresenter<HomeViewInterface,PoMeiTuModel>
         if (!"0".equals(status)) return;
         pageNo++;
         HomeViewInterface homeView = getView();
-        List<PoMeiTuModel.ContentBean> dataList = response.body().getContent();
+        List<CommonContentBean> dataList = response.body().getContent();
         if (homeView != null ) {
             homeView.dismissLoading();
             homeView.notifyHomeUiWithData(dataList,pageNo > 2 ? false:true);

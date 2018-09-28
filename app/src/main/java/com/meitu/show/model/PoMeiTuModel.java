@@ -22,7 +22,7 @@ public class PoMeiTuModel implements BaseModelInf {
     private int pages;
     private SearchBean search;
     private int size;
-    private List<ContentBean> content;
+    private List<CommonContentBean> content;
 
     public String getCode() {
         return code;
@@ -72,220 +72,15 @@ public class PoMeiTuModel implements BaseModelInf {
         this.size = size;
     }
 
-    public List<ContentBean> getContent() {
+    public List<CommonContentBean> getContent() {
         return content;
     }
 
-    public void setContent(List<ContentBean> content) {
+    public void setContent(List<CommonContentBean> content) {
         this.content = content;
     }
 
     public static class SearchBean {
     }
 
-    public static class ContentBean {
-        /**
-         * comments : 0
-         * count : 40
-         * countToday : 0
-         * cover : ifile/201809/15372372751539124.jpg
-         * createTime : 2018-09-18 10:27:24
-         * hasLike : false
-         * height : 900
-         * id : 5059
-         * isNew : true
-         * likes : 20
-         * name : [YOUMI] 2018.09.03 VOL.205
-         * nameEn : 心妍小公主 [40P]
-         * restrict : 1
-         * sortLast : 0
-         * sortLikes : 0
-         * sortNominal : 0
-         * status : 1
-         * type : 2
-         * views : 301
-         * width : 600
-         */
-
-        private int comments;
-        private int count;
-        private int countToday;
-        private String cover;
-        private String createTime;
-        private boolean hasLike;
-        private int height;
-        private int id;
-        private boolean isNew;
-        private int likes;
-        private String name;
-        private String nameEn;
-        private int restrict;
-        private int sortLast;
-        private int sortLikes;
-        private int sortNominal;
-        private int status;
-        private int type;
-        private int views;
-        private int width;
-
-        public int getComments() {
-            return comments;
-        }
-
-        public void setComments(int comments) {
-            this.comments = comments;
-        }
-
-        public int getCount() {
-            return count;
-        }
-
-        public void setCount(int count) {
-            this.count = count;
-        }
-
-        public int getCountToday() {
-            return countToday;
-        }
-
-        public void setCountToday(int countToday) {
-            this.countToday = countToday;
-        }
-
-        public String getCover() {
-            return cover;
-        }
-
-        public void setCover(String cover) {
-            this.cover = cover;
-        }
-
-        public String getCreateTime() {
-            return createTime;
-        }
-
-        public void setCreateTime(String createTime) {
-            this.createTime = createTime;
-        }
-
-        public boolean isHasLike() {
-            return hasLike;
-        }
-
-        public void setHasLike(boolean hasLike) {
-            this.hasLike = hasLike;
-        }
-
-        public int getHeight() {
-            return height;
-        }
-
-        public void setHeight(int height) {
-            this.height = height;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public boolean isIsNew() {
-            return isNew;
-        }
-
-        public void setIsNew(boolean isNew) {
-            this.isNew = isNew;
-        }
-
-        public int getLikes() {
-            return likes;
-        }
-
-        public void setLikes(int likes) {
-            this.likes = likes;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getNameEn() {
-            return nameEn;
-        }
-
-        public void setNameEn(String nameEn) {
-            this.nameEn = nameEn;
-        }
-
-        public int getRestrict() {
-            return restrict;
-        }
-
-        public void setRestrict(int restrict) {
-            this.restrict = restrict;
-        }
-
-        public int getSortLast() {
-            return sortLast;
-        }
-
-        public void setSortLast(int sortLast) {
-            this.sortLast = sortLast;
-        }
-
-        public int getSortLikes() {
-            return sortLikes;
-        }
-
-        public void setSortLikes(int sortLikes) {
-            this.sortLikes = sortLikes;
-        }
-
-        public int getSortNominal() {
-            return sortNominal;
-        }
-
-        public void setSortNominal(int sortNominal) {
-            this.sortNominal = sortNominal;
-        }
-
-        public int getStatus() {
-            return status;
-        }
-
-        public void setStatus(int status) {
-            this.status = status;
-        }
-
-        public int getType() {
-            return type;
-        }
-
-        public void setType(int type) {
-            this.type = type;
-        }
-
-        public int getViews() {
-            return views;
-        }
-
-        public void setViews(int views) {
-            this.views = views;
-        }
-
-        public int getWidth() {
-            return width;
-        }
-
-        public void setWidth(int width) {
-            this.width = width;
-        }
-    }
 }

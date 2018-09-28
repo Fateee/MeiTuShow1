@@ -1,5 +1,6 @@
 package com.meitu.show.viewinf;
 
+import com.meitu.show.model.CommonContentBean;
 import com.meitu.show.model.HomeMeituModel;
 import com.meitu.show.model.PoMeiTuModel;
 import com.meitu.show.presenter.base.BaseViewInf;
@@ -15,5 +16,5 @@ public interface HomeViewInterface extends BaseViewInf {
     void dismissLoading();
     void showErrorView();
 //    void notifyHomeUiWithData(List<HomeMeituModel.Content.DataDetail> list,boolean refresh);
-    void notifyHomeUiWithData(List<PoMeiTuModel.ContentBean> list, boolean refresh);
+    void notifyHomeUiWithData(List<CommonContentBean> list, boolean refresh);
 }
