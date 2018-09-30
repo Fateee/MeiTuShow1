@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="310dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/edit_code"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
+        android:text="注册"
+        android:textColor="@color/colorAccent" />
+    <!--自定义的下划线EditText-->
+    <EditText
+        android:id="@+id/edit_phone"
+        android:layout_width="320dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/edit_code"
+        android:layout_marginTop="96dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="你的手机号"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/edit_code"
+        android:layout_width="210dp"
+        android:layout_height="45dp"
+        android:layout_alignStart="@+id/btn_register"
+        android:layout_below="@+id/edit_phone"
+        android:layout_marginTop="41dp"
+        android:ems="10"
+        android:hint="请输入验证码"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btn_getcord"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@+id/edit_code"
+        android:layout_alignBottom="@+id/edit_code"
+        android:layout_alignEnd="@+id/edit_phone"
+        android:background="@color/colorPrimary"
+        android:text="获取验证码"
+        android:textColor="@color/colorAccent" />
+
+</RelativeLayout>

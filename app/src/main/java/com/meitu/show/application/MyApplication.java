@@ -3,6 +3,7 @@ package com.meitu.show.application;
 import android.app.Application;
 import android.util.Log;
 
+import com.mob.MobSDK;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
@@ -30,5 +31,6 @@ public class MyApplication extends Application {
                 Log.e(TAG,"onFailure : "+s);
             }
         });
+        MobSDK.init(this);
     }
 }

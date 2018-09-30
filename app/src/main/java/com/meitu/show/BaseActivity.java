@@ -35,9 +35,13 @@ public abstract class BaseActivity <P extends BasePresenter, V extends BaseViewI
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         PushAgent.getInstance(this).onAppStart();
+        initData();
         mP = getPresenter();
         if (mP == null) return;
         mP.attach((V)this);
+    }
+
+    public void initData() {
     }
 
     protected abstract int getContentView();

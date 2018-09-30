@@ -112,12 +112,12 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
     }
 
     public HomeAdapter(Context context) {
+        mContext = context;
         mDataList = new ArrayList<>();
     }
 
     @Override
     public HomeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        mContext = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home, null);
         return new HomeViewHolder(view);
     }

@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.mob.sdk'
 
 android {
     compileSdkVersion 26
@@ -48,4 +49,13 @@ dependencies {
     compile 'com.umeng.sdk:utdid:1.1.5.3'
     //PushSDK
     compile 'com.umeng.sdk:push:4.2.0'
+}
+
+// 在MobSDK的扩展中注册SMSSDK的相关信息
+MobSDK {
+    appKey "281534c95cfa5"
+    appSecret "222140dbc8142f3c5138d7dc54bbe582"
+
+    SMSSDK {
+    }
 }
