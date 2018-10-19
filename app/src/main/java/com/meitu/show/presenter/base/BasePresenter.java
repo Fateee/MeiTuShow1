@@ -3,6 +3,7 @@ package com.meitu.show.presenter.base;
 
 import android.util.Log;
 
+import com.meitu.show.BaseActivity;
 import com.meitu.show.Constant;
 import com.meitu.show.request.CheckVersionRequest;
 import com.meitu.show.request.GetHomeRequest;

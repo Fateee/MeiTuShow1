@@ -96,7 +96,7 @@ public class CategoryListActivity extends BaseActivity<CategoryListPresenter, Ca
         return R.layout.activity_main;
     }
 
-    private void initData() {
+    public void initData() {
         mCategoryListPresenter.getCategoryMeiTuList(true,mImgId);
     }
 

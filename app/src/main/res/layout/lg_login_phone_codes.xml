@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?><!--手机登录 验证码模块-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/codes"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/lg_bg_login_input_selector"
+        android:paddingLeft="3dp"
+        android:hint="请输入手机验证码"
+        android:imeOptions="actionNext"
+        android:inputType="numberSigned"
+        android:maxLength="6"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="#bfbfbf"
+        android:textCursorDrawable="@drawable/lg_edit_cursor_login"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/user_name_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:paddingRight="3dp"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="14dp"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="获取验证码"
+        android:textColor="#f6a619"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/codes_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="29dp"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:gravity="bottom"
+        android:text="没收到?"
+        android:textColor="@android:color/white"
+        android:textSize="16dp"
+        android:visibility="gone" />
+
+</RelativeLayout>

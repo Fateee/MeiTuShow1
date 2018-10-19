@@ -99,7 +99,7 @@ public class ProfileListActivity extends BaseActivity<PoProListPresenter, Profil
         mCommonContentBean = (CommonContentBean) getIntent().getSerializableExtra(BEAN_PARAM);
     }
 
-    private void initData() {
+    public void initData() {
         mProListPresenter.getProlistMeiTuList(true, mImgId);
     }
 

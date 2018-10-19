@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2018/1/18.
  */
 
-public abstract class BaseActivity <P extends BasePresenter, V extends BaseViewInf> extends AppCompatActivity {
+public abstract class BaseActivity1<P extends BasePresenter> extends AppCompatActivity {
 
     private P mP;
 
@@ -38,7 +38,6 @@ public abstract class BaseActivity <P extends BasePresenter, V extends BaseViewI
 //        initData();
         mP = getPresenter();
         if (mP == null) return;
-        mP.attach((V)this);
     }
 
 //    public void initData() {
@@ -67,7 +66,7 @@ public abstract class BaseActivity <P extends BasePresenter, V extends BaseViewI
                     DownloadManager manager = DownloadManager.getInstance(this);
                     manager.setApkName(verinfo.getAppname()+".apk").setApkUrl(verinfo.getAppurl()).setSmallIcon(R.drawable.ic_launcher)
                             .setApkDescription(verinfo.getAppinfo()).setApkVersionCode(verinfo.getAppcode()).setApkVersionName(verinfo.getAppversion())
-                            .setDownloadPath(Environment.getExternalStorageDirectory() + "/AppUpdate").download(BaseActivity.this);
+                            .setDownloadPath(Environment.getExternalStorageDirectory() + "/AppUpdate").download(BaseActivity1.this);
                 }
                 break;
         }

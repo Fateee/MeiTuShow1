@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_register_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:id="@+id/register_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:orientation="vertical">
+
+        <!--<include-->
+        <!--layout="@layout/lg_login_phone_username"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="33dp" />-->
+        <EditText
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/lg_bg_login_input_selector"
+            android:hint="请输入手机号"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:paddingLeft="3dp"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="#bfbfbf"
+            android:textCursorDrawable="@drawable/lg_edit_cursor_login"
+            android:textSize="15dp" />
+
+
+        <include
+            layout="@layout/lg_login_phone_codes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="17.5dp"
+            android:layout_marginTop="55dp"
+            android:alpha="0.6"
+            android:background="@drawable/lg_bg_login"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="注册/登录"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <include layout="@layout/titleview" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/register_content"
+        android:layout_below="@id/simple_toolbar"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center"
+            android:text="what a beauty"
+            android:textColor="@color/black" />
+    </LinearLayout>
+</RelativeLayout>

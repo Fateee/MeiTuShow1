@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MeiTuShow</string>
+    <string name="uc_lib_bind_phone_btn_send_captcha_again">重新获取</string>
+    <string name="uc_lib_bind_phone_btn_countdown">%1$d秒</string>
+    <string name="uc_lib_bind_phone_tip_invalid_phone_empty">小美提示:手机号不能为空</string>
+    <string name="uc_lib_bind_phone_tip_invalid_phone_format">小美提示:输入的手机号格式不正确</string>
 </resources>

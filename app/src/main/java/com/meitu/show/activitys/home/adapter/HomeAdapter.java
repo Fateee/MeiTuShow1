@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.meitu.show.BaseFragment;
@@ -27,6 +28,9 @@ import com.meitu.show.model.PoProlistModel;
 import com.meitu.show.model.ProlistModel;
 import com.meitu.show.activitys.profilelist.activity.ProfileListActivity;
 import com.meitu.show.utils.ScreenUtil;
+import com.payelves.sdk.EPay;
+import com.payelves.sdk.enums.EPayResult;
+import com.payelves.sdk.listener.PayResultListener;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -55,7 +59,20 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
                     break;
                 case BaseFragment.CATEGORY_TYPE:
                     typeStr = CategoryFragment.TAG;
-                    CategoryListActivity.startActivity(mContext, mPicBean, mType);
+//                    CategoryListActivity.startActivity(mContext, mPicBean, mType);
+                    EPay.getInstance(mContext).pay("试用会员", "3元试用会员", 1, "", "", "", new PayResultListener() {
+                        @Override
+                        public void onFinish(Context context, Long payId, String orderId, String payUserId, EPayResult payResult, int payType, Integer amount) {
+                            EPay.getInstance(context).closePayView();//关闭快捷支付页面
+                            if(payResult.getCode() == EPayResult.SUCCESS_CODE.getCode()){
+                                //支付成功逻辑处理
+                                Toast.makeText(mContext, payResult.getMsg(), Toast.LENGTH_LONG).show();
+                            }else if(payResult.getCode() == EPayResult.FAIL_CODE.getCode()){
+                                //支付失败逻辑处理
+                                Toast.makeText(mContext, payResult.getMsg(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
                     break;
                 case BaseFragment.CHOSEN_TYPE:
                     typeStr = ChosenFragment.TAG;

@@ -84,7 +84,7 @@ public class HomeActivity extends BaseActivity {
         mPagerAdapter.setFragments(mFragments);
     }
 
-    private void initData() {
+    public void initData() {
         mViewPager.setAdapter(mPagerAdapter);
         //缓存fragment页面最大为4页
         mViewPager.setOffscreenPageLimit(3);
