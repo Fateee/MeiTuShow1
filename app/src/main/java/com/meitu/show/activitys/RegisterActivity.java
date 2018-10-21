@@ -1,5 +1,6 @@
 package com.meitu.show.activitys;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -17,8 +18,10 @@ import android.widget.Toast;
 
 import com.meitu.show.BaseActivity1;
 import com.meitu.show.R;
+import com.meitu.show.application.MyApplication;
 import com.meitu.show.model.RegisterModel;
 import com.meitu.show.presenter.RegisterPresenter;
+import com.meitu.show.utils.SharePreUtil;
 import com.meitu.show.viewinf.RegisterIV;
 
 import butterknife.BindView;
@@ -70,6 +73,7 @@ public class RegisterActivity extends BaseActivity1<RegisterPresenter> implement
      */
     private CountDownTimer mCurrentCountDown;
     private RegisterPresenter mRegisterPresenter;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -345,20 +349,23 @@ public class RegisterActivity extends BaseActivity1<RegisterPresenter> implement
 
     @Override
     public void notifyRegisterResult(RegisterModel.DataBean data) {
-        Toast.makeText(getApplicationContext(), ".....",
-                Toast.LENGTH_LONG).show();
+        SharePreUtil mSharePreUtil = SharePreUtil.getInstance(getApplicationContext());
+        mSharePreUtil.put("creatdate",data.getCreatdate());
+        mSharePreUtil.put("overdate",data.getOverdate());
+        mSharePreUtil.put("phone",data.getPhone());
+        mSharePreUtil.put("vip",data.isVip());
+
     }
 
     @Override
     public void showLoading() {
-        Toast.makeText(getApplicationContext(), "转句话",
-                Toast.LENGTH_LONG).show();
+        mProgressDialog = ProgressDialog.show(this, "", "", false, true);
+        mProgressDialog.show();
     }
 
     @Override
     public void dismissLoading() {
-        Toast.makeText(getApplicationContext(), "消息",
-                Toast.LENGTH_LONG).show();
+        mProgressDialog.dismiss();
     }
 
 

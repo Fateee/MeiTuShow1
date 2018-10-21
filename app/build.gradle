@@ -49,7 +49,7 @@ dependencies {
     //    compile 'com.umeng.sdk:utdid:1.1.5.3'
     //PushSDK
     compile 'com.umeng.sdk:push:4.2.0'
-    compile 'com.payelves:sdk-release:3.2.8'
+    compile 'com.payelves:sdk-release:3.3.0'
     implementation files('libs/MobCommons-2018.0918.1444.jar')
     implementation files('libs/MobTools-2018.0911.1425.jar')
     implementation files('libs/SDKWrapper-2018.0801.1824.jar')

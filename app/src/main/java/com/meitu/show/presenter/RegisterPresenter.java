@@ -19,7 +19,7 @@ public class RegisterPresenter extends BasePresenter<RegisterIV,RegisterModel> {
 
     public RegisterPresenter() {
         super();
-        mRegisterRequest = initRetrofit(Constant.mLocalUrl,RegisterRequest.class);
+        mRegisterRequest = initRetrofit(Constant.mAppInfoUrl,RegisterRequest.class);
     }
 
     @Override

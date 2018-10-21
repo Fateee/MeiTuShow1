@@ -26,7 +26,7 @@ public final class SharePreUtil {
      * 配置文件，文件名
      */
     private static final String SHARE_NAME = "app_update";
-
+    private final String USER_INFO = "user_info";
     /**
      * 存字符串
      *
@@ -153,12 +153,28 @@ public final class SharePreUtil {
      * 保存手机里面的名字
      */private SharedPreferences.Editor editor;
 
-    public SharePreUtil(Context context,String FILE_NAME) {
-        sharedPreferences = context.getSharedPreferences(FILE_NAME,
+    private SharePreUtil(Context context,String FILE_NAME) {
+        sharedPreferences = context.getSharedPreferences(USER_INFO,
                 Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
 
+    private SharePreUtil(Context context) {
+        sharedPreferences = context.getSharedPreferences(USER_INFO,
+                Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+    }
+
+    private static SharePreUtil mSharePreUtil;
+
+    public static SharePreUtil getInstance(Context context) {
+        synchronized (mSharePreUtil) {
+            if (mSharePreUtil == null) {
+                mSharePreUtil = new SharePreUtil(context);
+            }
+        }
+        return mSharePreUtil;
+    }
     /**
      * 存储
      */
