@@ -50,6 +50,13 @@ public class RegisterModel implements BaseModelInf {
         private String phone;
         private boolean vip;
 
+        public DataBean(String creatdate, String overdate, String phone, boolean vip) {
+            this.creatdate = creatdate;
+            this.overdate = overdate;
+            this.phone = phone;
+            this.vip = vip;
+        }
+
         public String getCreatdate() {
             return creatdate;
         }

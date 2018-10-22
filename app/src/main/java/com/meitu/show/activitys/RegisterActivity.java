@@ -1,6 +1,8 @@
 package com.meitu.show.activitys;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -10,17 +12,14 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.meitu.show.BaseActivity1;
-import com.meitu.show.Constant.RouterConst;
 import com.meitu.show.R;
 import com.meitu.show.activitys.home.activity.HomeActivity;
-import com.meitu.show.application.MyApplication;
 import com.meitu.show.model.RegisterModel;
 import com.meitu.show.presenter.RegisterPresenter;
 import com.meitu.show.utils.SharePreUtil;
@@ -31,19 +30,13 @@ import butterknife.OnClick;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
-public class RegisterActivity extends BaseActivity1<RegisterPresenter> implements View.OnClickListener,RegisterIV {
+public class RegisterActivity extends BaseActivity1<RegisterPresenter> implements RegisterIV {
 
-    private EditText edit_phone;
-    private EditText edit_cord;
-    private TextView now;
-    private Button btn_getCord;
-    private Button btn_register;
     @BindView(R.id.iv_register_bg)
     ImageView mRegisterBgIV;
     private String phone_number;
     private String cord_number;
     EventHandler eventHandler;
-    private int time = 60;
     private boolean flag = true;
     /**
      * 使用Handler来分发Message对象到主线程中，处理事件
@@ -76,34 +69,13 @@ public class RegisterActivity extends BaseActivity1<RegisterPresenter> implement
     private RegisterPresenter mRegisterPresenter;
     private ProgressDialog mProgressDialog;
 
+    public static void startActivity(Context context) {
+        context.startActivity(new Intent(context,RegisterActivity.class));
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initData();
-        mRegisterPresenter.attach(this);
-    }
-
-    public void initData() {
-        //加载背景，
-//        Glide.with(this)
-//                .load(R.drawable.bg_register_a)
-//                // 设置高斯模糊
-//                .bitmapTransform(new BlurTransformation(this, 5))
-//                .into(mRegisterBgIV);
-
-//        getId();
-        txtMainTitle.setVisibility(View.GONE);
-        initEditText();
-        eventHandler = new EventHandler() {
-            public void afterEvent(int event, int result, Object data) {
-                Message msg = new Message();
-                msg.arg1 = event;
-                msg.arg2 = result;
-                msg.obj = data;
-                handler.sendMessage(msg);
-            }
-        };
-        SMSSDK.registerEventHandler(eventHandler);
     }
 
     @Override
@@ -111,36 +83,6 @@ public class RegisterActivity extends BaseActivity1<RegisterPresenter> implement
         super.onDestroy();
         SMSSDK.unregisterEventHandler(eventHandler);
         handler.removeCallbacksAndMessages(null);
-    }
-
-    /**
-     * 获取id
-     */
-    private void getId() {
-        edit_phone = findViewById(R.id.edit_phone);
-        edit_cord = findViewById(R.id.edit_code);
-        btn_getCord = findViewById(R.id.btn_getcord);
-        btn_register = findViewById(R.id.btn_register);
-        btn_getCord.setOnClickListener(this);
-        btn_register.setOnClickListener(this);
-    }
-
-    /**
-     * 按钮点击事件
-     */
-    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.btn_getcord:
-//                getVerificationCode();
-//                break;
-//            case R.id.btn_register:
-//                if (judCord(verifyCode))
-//                    SMSSDK.submitVerificationCode("86", phone_number, cord_number);
-//                flag = false;
-//                break;
-//            default:
-//                break;
-//        }
     }
 
     private void initEditText() {
@@ -259,6 +201,30 @@ public class RegisterActivity extends BaseActivity1<RegisterPresenter> implement
         return mRegisterPresenter;
     }
 
+    @Override
+    protected void initDatas() {
+        //加载背景，
+//        Glide.with(this)
+//                .load(R.drawable.bg_register_a)
+//                // 设置高斯模糊
+//                .bitmapTransform(new BlurTransformation(this, 5))
+//                .into(mRegisterBgIV);
+
+//        getId();
+        txtMainTitle.setVisibility(View.GONE);
+        initEditText();
+        eventHandler = new EventHandler() {
+            public void afterEvent(int event, int result, Object data) {
+                Message msg = new Message();
+                msg.arg1 = event;
+                msg.arg2 = result;
+                msg.obj = data;
+                handler.sendMessage(msg);
+            }
+        };
+        SMSSDK.registerEventHandler(eventHandler);
+    }
+
     @OnClick({R.id.codes_tip})
     void onNotReceiveClicked() {
 //        if (mCaptchaPresenter != null) {
@@ -351,10 +317,7 @@ public class RegisterActivity extends BaseActivity1<RegisterPresenter> implement
     @Override
     public void notifyRegisterResult(RegisterModel.DataBean data) {
         SharePreUtil mSharePreUtil = SharePreUtil.getInstance(getApplicationContext());
-        mSharePreUtil.put("creatdate",data.getCreatdate());
-        mSharePreUtil.put("overdate",data.getOverdate());
-        mSharePreUtil.put("phone",data.getPhone());
-        mSharePreUtil.put("vip",data.isVip());
+        mSharePreUtil.saveUserInfo(data);
         HomeActivity.startActivity(this);
         finish();
     }
@@ -385,7 +348,7 @@ public class RegisterActivity extends BaseActivity1<RegisterPresenter> implement
                     if (smart) {
                         Toast.makeText(getApplicationContext(), "该手机号已经注册过，请重新输入",
                                 Toast.LENGTH_LONG).show();
-                        edit_phone.requestFocus();
+                        mEdtPhoneNumber.requestFocus();
                         return;
                     }
                 } else {
@@ -406,9 +369,8 @@ public class RegisterActivity extends BaseActivity1<RegisterPresenter> implement
                 }
             } else {
                 if (flag) {
-                    btn_getCord.setVisibility(View.VISIBLE);
                     Toast.makeText(getApplicationContext(), "验证码获取失败请重新获取", Toast.LENGTH_LONG).show();
-                    edit_phone.requestFocus();
+                    mEdtPhoneNumber.requestFocus();
                 } else {
                     Toast.makeText(getApplicationContext(), "验证码输入错误", Toast.LENGTH_LONG).show();
                 }

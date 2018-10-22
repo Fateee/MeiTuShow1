@@ -2,6 +2,9 @@ package com.meitu.show.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
+
+import com.meitu.show.model.RegisterModel;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -240,5 +243,24 @@ public final class SharePreUtil {
      */
     public Map<String, ?> getAll() {
         return sharedPreferences.getAll();
+    }
+
+    public void saveUserInfo(RegisterModel.DataBean data) {
+        put("creatdate",data.getCreatdate());
+        put("overdate",data.getOverdate());
+        put("phone",data.getPhone());
+        put("vip",data.isVip());
+    }
+
+    public RegisterModel.DataBean getUserInfo() {
+        String creatdate = (String) getSharedPreference("creatdate", "");
+        String overdate = (String) getSharedPreference("overdate", "");
+        String phone = (String) getSharedPreference("phone", "");
+        boolean vip = (boolean) getSharedPreference("vip", false);
+        if (!TextUtils.isEmpty(phone)) {
+            RegisterModel.DataBean userInfo = new RegisterModel.DataBean(creatdate, overdate, phone, vip);
+            return userInfo;
+        }
+        return null;
     }
 }

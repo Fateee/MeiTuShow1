@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2018/1/18.
  */
 
-public abstract class BaseActivity1<P extends BasePresenter> extends AppCompatActivity {
+public abstract class BaseActivity1<P extends BasePresenter> extends AppCompatActivity implements BaseViewInf{
 
     private P mP;
 
@@ -35,17 +35,17 @@ public abstract class BaseActivity1<P extends BasePresenter> extends AppCompatAc
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         PushAgent.getInstance(this).onAppStart();
-//        initData();
         mP = getPresenter();
         if (mP == null) return;
+        mP.attach(this);
+        initDatas();
     }
-
-//    public void initData() {
-//    }
 
     protected abstract int getContentView();
 
     protected abstract P getPresenter();
+
+    protected abstract void initDatas();
 
     @Override
     protected void onDestroy() {

@@ -54,16 +54,17 @@
             android:name=".activitys.permission.PermissionActivity"
             android:label=""
             android:theme="@style/DialogActivity" />
-
         <activity
-            android:name=".activitys.RegisterActivity"
+            android:name=".activitys.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activitys.RegisterActivity"
+            android:screenOrientation="portrait"></activity>
 
         <activity
             android:name="com.mob.tools.MobUIShell"
