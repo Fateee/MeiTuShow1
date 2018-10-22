@@ -3,11 +3,7 @@ package com.meitu.show.presenter.base;
 
 import android.util.Log;
 
-import com.meitu.show.BaseActivity;
-import com.meitu.show.Constant;
-import com.meitu.show.request.CheckVersionRequest;
-import com.meitu.show.request.GetHomeRequest;
-import com.meitu.show.request.GetProlistRequest;
+import com.meitu.show.Constant.UrlConst;
 
 import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
@@ -29,7 +25,7 @@ public abstract class BasePresenter<V extends BaseViewInf, M extends BaseModelIn
     public M model;
 
     public BasePresenter() {
-        if (Constant.debug) {
+        if (UrlConst.debug) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
                 @Override
                 public void log(String message) {
@@ -58,7 +54,7 @@ public abstract class BasePresenter<V extends BaseViewInf, M extends BaseModelIn
     public <T> T initRetrofit(String url, Class<T> service) {
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.baseUrl(url).addConverterFactory(GsonConverterFactory.create());
-        if (Constant.debug && client!= null) {
+        if (UrlConst.debug && client!= null) {
             builder.client(client);
         }
         Retrofit mRetrofit = builder.build();

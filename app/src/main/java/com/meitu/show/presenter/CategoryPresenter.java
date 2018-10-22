@@ -1,9 +1,8 @@
 package com.meitu.show.presenter;
 
-import com.meitu.show.Constant;
+import com.meitu.show.Constant.UrlConst;
 import com.meitu.show.model.CommonContentBean;
 import com.meitu.show.model.PoMeiTuModel;
-import com.meitu.show.presenter.base.BaseModelInf;
 import com.meitu.show.presenter.base.BasePresenter;
 import com.meitu.show.request.GetHomeRequest;
 import com.meitu.show.viewinf.HomeViewInterface;
@@ -24,7 +23,7 @@ public class CategoryPresenter extends BasePresenter<HomeViewInterface, PoMeiTuM
 
     public CategoryPresenter() {
         super();
-        mRequestModel = initRetrofit(Constant.mHomePoUrl, GetHomeRequest.class);
+        mRequestModel = initRetrofit(UrlConst.mHomePoUrl, GetHomeRequest.class);
     }
 
     @Override

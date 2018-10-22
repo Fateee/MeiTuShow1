@@ -1,6 +1,5 @@
 package com.meitu.show.activitys.home.adapter;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -9,12 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.meitu.show.BaseFragment;
-import com.meitu.show.Constant;
+import com.meitu.show.Constant.UrlConst;
 import com.meitu.show.R;
 import com.meitu.show.activitys.details.PhotoViewActivity;
 import com.meitu.show.activitys.home.activity.CategoryListActivity;
@@ -23,7 +21,6 @@ import com.meitu.show.fragments.ChosenFragment;
 import com.meitu.show.fragments.LatestFragment;
 import com.meitu.show.model.CommonContentBean;
 import com.meitu.show.model.HomeMeituModel;
-import com.meitu.show.model.PoMeiTuModel;
 import com.meitu.show.model.PoProlistModel;
 import com.meitu.show.model.ProlistModel;
 import com.meitu.show.activitys.profilelist.activity.ProfileListActivity;
@@ -162,7 +159,7 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
             holder.mHomeItemIV.setOnClickListener(mDetailListener);
         } else if (temp instanceof CommonContentBean) {
             CommonContentBean mPicBean = (CommonContentBean) temp;
-            url = Constant.mHomePoUrl + mPicBean.getCover();
+            url = UrlConst.mHomePoUrl + mPicBean.getCover();
             if (TextUtils.isEmpty(url)) return;
 //            if (mLatestType == 1) {
 //                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mHomeItemIV.getLayoutParams();
@@ -174,7 +171,7 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
             holder.mHomeItemIV.setTag(R.id.id_one, mPicBean);
             holder.mHomeItemIV.setOnClickListener(mProlistListener);
         } else if (temp instanceof PoProlistModel.ContentBean) {
-            url = Constant.mHomePoUrl + ((PoProlistModel.ContentBean) temp).getUrl();
+            url = UrlConst.mHomePoUrl + ((PoProlistModel.ContentBean) temp).getUrl();
             if (TextUtils.isEmpty(url)) return;
             ViewGroup.LayoutParams layoutParams = holder.mHomeItemIV.getLayoutParams();
             layoutParams.width = mItemWidth;

@@ -17,7 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.meitu.show.BaseActivity1;
+import com.meitu.show.Constant.RouterConst;
 import com.meitu.show.R;
+import com.meitu.show.activitys.home.activity.HomeActivity;
 import com.meitu.show.application.MyApplication;
 import com.meitu.show.model.RegisterModel;
 import com.meitu.show.presenter.RegisterPresenter;
@@ -28,7 +30,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
-
 
 public class RegisterActivity extends BaseActivity1<RegisterPresenter> implements View.OnClickListener,RegisterIV {
 
@@ -354,7 +355,8 @@ public class RegisterActivity extends BaseActivity1<RegisterPresenter> implement
         mSharePreUtil.put("overdate",data.getOverdate());
         mSharePreUtil.put("phone",data.getPhone());
         mSharePreUtil.put("vip",data.isVip());
-
+        HomeActivity.startActivity(this);
+        finish();
     }
 
     @Override
@@ -391,8 +393,8 @@ public class RegisterActivity extends BaseActivity1<RegisterPresenter> implement
                 }
             } else if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
-                    Toast.makeText(getApplicationContext(), "验证码输入正确",
-                            Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), "验证码输入正确",
+//                            Toast.LENGTH_LONG).show();
                     //todo api
                     //todo ui 跳转
                     //todo token保存

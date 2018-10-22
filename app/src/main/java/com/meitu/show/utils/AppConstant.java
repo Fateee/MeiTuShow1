@@ -3,7 +3,7 @@ package com.meitu.show.utils;
 /**
  * 项目名:    AppUpdate
  * 包名       com.azhon.appupdate.utils
- * 文件名:    Constant
+ * 文件名:    AppConstant
  * 创建时间:  2018/1/29 on 15:41
  * 描述:     TODO 存储库中使用的常量
  *
@@ -11,7 +11,7 @@ package com.meitu.show.utils;
  */
 
 
-public final class Constant {
+public final class AppConstant {
 
     public static final int HTTP_TIME_OUT = 5000;
 

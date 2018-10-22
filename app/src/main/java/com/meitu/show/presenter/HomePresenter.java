@@ -1,8 +1,6 @@
 package com.meitu.show.presenter;
 
-import android.util.Log;
-
-import com.meitu.show.Constant;
+import com.meitu.show.Constant.UrlConst;
 import com.meitu.show.model.CommonContentBean;
 import com.meitu.show.model.PoMeiTuModel;
 import com.meitu.show.model.eventbus.EventConst;
@@ -18,15 +16,10 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -56,19 +49,19 @@ public class HomePresenter extends BasePresenter<HomeViewInterface,PoMeiTuModel>
 //                .readTimeout(5000, TimeUnit.SECONDS)
 //                .writeTimeout(5000, TimeUnit.SECONDS)
 //                .build();
-//        mRetrofit = new Retrofit.Builder().baseUrl(Constant.mHomePoUrl).client(client)
+//        mRetrofit = new Retrofit.Builder().baseUrl(AppConstant.mHomePoUrl).client(client)
 //                .addConverterFactory(GsonConverterFactory.create()).build();
 //
-////        mRetrofit = new Retrofit.Builder().baseUrl(Constant.mHomePoUrl)
+////        mRetrofit = new Retrofit.Builder().baseUrl(AppConstant.mHomePoUrl)
 ////                .addConverterFactory(GsonConverterFactory.create()).build();
 //        mRequestModel = mRetrofit.create(GetHomeRequest.class);
 //
-//        Retrofit mAppRetrofit = new Retrofit.Builder().baseUrl(Constant.mAppInfoUrl).client(client)
+//        Retrofit mAppRetrofit = new Retrofit.Builder().baseUrl(AppConstant.mAppInfoUrl).client(client)
 //                .addConverterFactory(GsonConverterFactory.create()).build();
 //        mAppRequestModel = mAppRetrofit.create(CheckVersionRequest.class);
 
-        mRequestModel = initRetrofit(Constant.mHomePoUrl,GetHomeRequest.class);
-        mAppRequestModel = initRetrofit(Constant.mAppInfoUrl,CheckVersionRequest.class);
+        mRequestModel = initRetrofit(UrlConst.mHomePoUrl,GetHomeRequest.class);
+        mAppRequestModel = initRetrofit(UrlConst.mAppInfoUrl,CheckVersionRequest.class);
     }
 
 

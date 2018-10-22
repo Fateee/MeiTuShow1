@@ -2,17 +2,14 @@ package com.meitu.show.view;
 
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
-import com.meitu.show.Constant;
+import com.meitu.show.Constant.UrlConst;
 import com.meitu.show.R;
 import com.meitu.show.model.PoProlistModel;
-import com.meitu.show.model.ProlistModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +37,7 @@ public class MyImageAdapter<T> extends PagerAdapter {
         Object temp = mDataList.get(position);
         String url = "";
         if (temp instanceof PoProlistModel.ContentBean) {
-            url = Constant.mHomePoUrl+((PoProlistModel.ContentBean)temp).getUrl();
+            url = UrlConst.mHomePoUrl+((PoProlistModel.ContentBean)temp).getUrl();
         }
         PhotoView photoView = new PhotoView(activity);
         //显示图片

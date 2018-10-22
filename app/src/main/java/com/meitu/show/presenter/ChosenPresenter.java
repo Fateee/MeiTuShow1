@@ -1,6 +1,6 @@
 package com.meitu.show.presenter;
 
-import com.meitu.show.Constant;
+import com.meitu.show.Constant.UrlConst;
 import com.meitu.show.model.CommonContentBean;
 import com.meitu.show.model.PoMeiTuModel;
 import com.meitu.show.presenter.base.BasePresenter;
@@ -23,7 +23,7 @@ public class ChosenPresenter extends BasePresenter<HomeViewInterface,PoMeiTuMode
 
     public ChosenPresenter() {
         super();
-        mRequestModel = initRetrofit(Constant.mHomePoUrl,GetHomeRequest.class);
+        mRequestModel = initRetrofit(UrlConst.mHomePoUrl,GetHomeRequest.class);
     }
 
     @Override

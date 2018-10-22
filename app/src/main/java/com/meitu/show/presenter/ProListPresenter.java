@@ -1,12 +1,10 @@
 package com.meitu.show.presenter;
 
 import android.text.TextUtils;
-import android.util.Log;
 
-import com.meitu.show.Constant;
+import com.meitu.show.Constant.UrlConst;
 import com.meitu.show.model.ProlistModel;
 import com.meitu.show.presenter.base.BasePresenter;
-import com.meitu.show.request.GetHomeRequest;
 import com.meitu.show.request.GetProlistRequest;
 import com.meitu.show.viewinf.ProListViewInterface;
 
@@ -14,16 +12,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.Cache;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Administrator on 2018/2/4.
@@ -53,10 +45,10 @@ public class ProListPresenter extends BasePresenter<ProListViewInterface,Prolist
 //                .writeTimeout(5000, TimeUnit.SECONDS)
 //                .build();
 
-//        Retrofit mRetrofit = new Retrofit.Builder().baseUrl(Constant.mHomeUrl)/*.client(client)*/
+//        Retrofit mRetrofit = new Retrofit.Builder().baseUrl(AppConstant.mHomeUrl)/*.client(client)*/
 //                .addConverterFactory(GsonConverterFactory.create()).build();
 //        mRequestModel = mRetrofit.create(GetProlistRequest.class);
-        mRequestModel = initRetrofit(Constant.mHomeUrl,GetProlistRequest.class);
+        mRequestModel = initRetrofit(UrlConst.mHomeUrl,GetProlistRequest.class);
     }
 
     @Override

@@ -14,7 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.meitu.show.service.DownloadService;
-import com.meitu.show.utils.Constant;
+import com.meitu.show.utils.AppConstant;
 import com.meitu.show.utils.LogUtil;
 import com.meitu.show.utils.PermissionUtil;
 import com.umeng.analytics.MobclickAgent;
@@ -36,13 +36,13 @@ public class PermissionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PermissionUtil.requestPermission(this, Constant.PERMISSION_REQUEST_CODE);
+        PermissionUtil.requestPermission(this, AppConstant.PERMISSION_REQUEST_CODE);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == Constant.PERMISSION_REQUEST_CODE) {
+        if (requestCode == AppConstant.PERMISSION_REQUEST_CODE) {
             if (grantResults.length == 0) {
                 // do something...
                 LogUtil.e(TAG, "权限请求回调：grantResults.length = 0");

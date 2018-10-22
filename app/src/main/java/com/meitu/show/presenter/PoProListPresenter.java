@@ -1,28 +1,18 @@
 package com.meitu.show.presenter;
 
-import android.text.TextUtils;
-import android.util.Log;
-
-import com.meitu.show.Constant;
+import com.meitu.show.Constant.UrlConst;
 import com.meitu.show.model.PoProlistModel;
 import com.meitu.show.presenter.base.BasePresenter;
-import com.meitu.show.request.GetHomeRequest;
 import com.meitu.show.request.GetProlistRequest;
 import com.meitu.show.viewinf.ProListViewInterface;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Administrator on 2018/2/4.
@@ -37,7 +27,7 @@ public class PoProListPresenter extends BasePresenter<ProListViewInterface, PoPr
     public PoProListPresenter() {
         super();
 //        OkHttpClient client = null;
-//        if (Constant.debug) {
+//        if (AppConstant.debug) {
 //            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
 //                @Override
 //                public void log(String message) {
@@ -56,14 +46,14 @@ public class PoProListPresenter extends BasePresenter<ProListViewInterface, PoPr
 //        }
 //
 //        Retrofit.Builder builder = new Retrofit.Builder();
-//        builder.baseUrl(Constant.mHomePoUrl).addConverterFactory(GsonConverterFactory.create());
-//        if (Constant.debug) {
+//        builder.baseUrl(AppConstant.mHomePoUrl).addConverterFactory(GsonConverterFactory.create());
+//        if (AppConstant.debug) {
 //            builder.client(client);
 //        }
 //        Retrofit mRetrofit = builder.build();
 //        mRequestModel = mRetrofit.create(GetProlistRequest.class);
 
-        mRequestModel = initRetrofit(Constant.mHomePoUrl,GetProlistRequest.class);
+        mRequestModel = initRetrofit(UrlConst.mHomePoUrl,GetProlistRequest.class);
     }
 
     @Override

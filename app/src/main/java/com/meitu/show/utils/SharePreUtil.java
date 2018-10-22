@@ -159,7 +159,7 @@ public final class SharePreUtil {
         editor = sharedPreferences.edit();
     }
 
-    private SharePreUtil(Context context) {
+    protected SharePreUtil(Context context) {
         sharedPreferences = context.getSharedPreferences(USER_INFO,
                 Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -168,10 +168,8 @@ public final class SharePreUtil {
     private static SharePreUtil mSharePreUtil;
 
     public static SharePreUtil getInstance(Context context) {
-        synchronized (mSharePreUtil) {
-            if (mSharePreUtil == null) {
-                mSharePreUtil = new SharePreUtil(context);
-            }
+        if (mSharePreUtil == null) {
+            mSharePreUtil = new SharePreUtil(context);
         }
         return mSharePreUtil;
     }

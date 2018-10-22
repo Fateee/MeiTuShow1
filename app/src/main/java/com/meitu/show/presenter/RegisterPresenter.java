@@ -1,6 +1,6 @@
 package com.meitu.show.presenter;
 
-import com.meitu.show.Constant;
+import com.meitu.show.Constant.UrlConst;
 import com.meitu.show.model.RegisterModel;
 import com.meitu.show.presenter.base.BasePresenter;
 import com.meitu.show.request.RegisterRequest;
@@ -19,7 +19,7 @@ public class RegisterPresenter extends BasePresenter<RegisterIV,RegisterModel> {
 
     public RegisterPresenter() {
         super();
-        mRegisterRequest = initRetrofit(Constant.mAppInfoUrl,RegisterRequest.class);
+        mRegisterRequest = initRetrofit(UrlConst.mAppInfoUrl,RegisterRequest.class);
     }
 
     @Override

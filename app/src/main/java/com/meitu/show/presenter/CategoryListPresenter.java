@@ -1,19 +1,11 @@
 package com.meitu.show.presenter;
 
-import com.meitu.show.Constant;
+import com.meitu.show.Constant.UrlConst;
 import com.meitu.show.model.CategoryListModel;
 import com.meitu.show.model.CommonContentBean;
-import com.meitu.show.model.PoMeiTuModel;
-import com.meitu.show.model.eventbus.EventConst;
-import com.meitu.show.model.eventbus.MessageEvent;
-import com.meitu.show.model.version.AppVerInfo;
 import com.meitu.show.presenter.base.BasePresenter;
-import com.meitu.show.request.CheckVersionRequest;
 import com.meitu.show.request.GetCategoryRequest;
-import com.meitu.show.request.GetHomeRequest;
 import com.meitu.show.viewinf.HomeViewInterface;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +28,7 @@ public class CategoryListPresenter extends BasePresenter<HomeViewInterface, Cate
 
     public CategoryListPresenter() {
         super();
-        mRequestModel = initRetrofit(Constant.mHomePoUrl, GetCategoryRequest.class);
+        mRequestModel = initRetrofit(UrlConst.mHomePoUrl, GetCategoryRequest.class);
     }
 
 

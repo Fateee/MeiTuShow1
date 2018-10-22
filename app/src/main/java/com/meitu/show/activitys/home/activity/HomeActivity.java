@@ -1,5 +1,7 @@
 package com.meitu.show.activitys.home.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -189,5 +191,9 @@ public class HomeActivity extends BaseActivity {
     public void onPause() {
         super.onPause();
         MobclickAgent.onPageEnd(TAG);
+    }
+
+    public static void startActivity(Context context) {
+        context.startActivity(new Intent(context,HomeActivity.class));
     }
 }

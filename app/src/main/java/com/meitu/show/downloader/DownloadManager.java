@@ -9,8 +9,7 @@ import android.widget.Toast;
 import com.meitu.show.BuildConfig;
 import com.meitu.show.activitys.permission.PermissionActivity;
 import com.meitu.show.service.DownloadService;
-import com.meitu.show.utils.ApkUtil;
-import com.meitu.show.utils.Constant;
+import com.meitu.show.utils.AppConstant;
 import com.meitu.show.utils.LogUtil;
 import com.meitu.show.utils.PermissionUtil;
 import com.meitu.show.view.UpdateDialog;
@@ -246,7 +245,7 @@ public class DownloadManager {
         if (TextUtils.isEmpty(apkName)) {
             throw new RuntimeException("apkName can not be empty!");
         }
-        if (!apkName.endsWith(Constant.APK_SUFFIX)) {
+        if (!apkName.endsWith(AppConstant.APK_SUFFIX)) {
             throw new RuntimeException("apkName must endsWith .apk!");
         }
         if (TextUtils.isEmpty(downloadPath)) {

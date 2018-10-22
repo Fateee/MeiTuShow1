@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 
 import com.meitu.show.listener.OnDownloadListener;
-import com.meitu.show.utils.Constant;
+import com.meitu.show.utils.AppConstant;
 import com.meitu.show.utils.FileUtil;
 import com.meitu.show.utils.LogUtil;
 import com.meitu.show.utils.SharePreUtil;
@@ -55,7 +55,7 @@ public class HttpDownloadManager extends BaseHttpDownloadManager {
             @Override
             public Thread newThread(@NonNull Runnable r) {
                 Thread thread = new Thread(r);
-                thread.setName(Constant.THREAD_NAME);
+                thread.setName(AppConstant.THREAD_NAME);
                 return thread;
             }
         });
@@ -66,7 +66,7 @@ public class HttpDownloadManager extends BaseHttpDownloadManager {
         @Override
         public void run() {
             //删除之前的安装包
-            int length = SharePreUtil.getInt(context, Constant.PROGRESS, 0);
+            int length = SharePreUtil.getInt(context, AppConstant.PROGRESS, 0);
             if (length == 0 && FileUtil.fileExists(downloadPath, apkName)) {
                 FileUtil.delete(downloadPath, apkName);
             }
@@ -94,16 +94,16 @@ public class HttpDownloadManager extends BaseHttpDownloadManager {
             URL url = new URL(apkUrl);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
-            con.setReadTimeout(Constant.HTTP_TIME_OUT);
-            con.setConnectTimeout(Constant.HTTP_TIME_OUT);
+            con.setReadTimeout(AppConstant.HTTP_TIME_OUT);
+            con.setConnectTimeout(AppConstant.HTTP_TIME_OUT);
             con.setRequestProperty("Accept-Encoding", "identity");
             //判断上一次下载一半的文件是否存在
             if (!FileUtil.fileExists(downloadPath, apkName)) {
                 //不存在 则从头开始下载
-                SharePreUtil.putInt(context, Constant.PROGRESS, 0);
+                SharePreUtil.putInt(context, AppConstant.PROGRESS, 0);
             }
             //上次下载到的位置
-            int start = SharePreUtil.getInt(context, Constant.PROGRESS, 0);
+            int start = SharePreUtil.getInt(context, AppConstant.PROGRESS, 0);
             //设置下载位置(从服务器上取要下载文件的某一段) 下载范围
             con.setRequestProperty("Range", "bytes=" + start + "-" + length);
             if (con.getResponseCode() == HttpURLConnection.HTTP_PARTIAL) {
@@ -121,11 +121,11 @@ public class HttpDownloadManager extends BaseHttpDownloadManager {
                         accessFile.write(buffer, 0, len);
                         progress += len;
                         //保存当前的下载进度
-                        SharePreUtil.putInt(context, Constant.PROGRESS, progress);
+                        SharePreUtil.putInt(context, AppConstant.PROGRESS, progress);
                         listener.downloading(length, progress);
                     }
                     //下载完成,将之前保存的进度清0
-                    SharePreUtil.putInt(context, Constant.PROGRESS, 0);
+                    SharePreUtil.putInt(context, AppConstant.PROGRESS, 0);
                     //释放资源
                     accessFile.close();
                     listener.done(FileUtil.createFile(downloadPath, apkName));
@@ -155,8 +155,8 @@ public class HttpDownloadManager extends BaseHttpDownloadManager {
             URL url = new URL(apkUrl);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
-            con.setReadTimeout(Constant.HTTP_TIME_OUT);
-            con.setConnectTimeout(Constant.HTTP_TIME_OUT);
+            con.setReadTimeout(AppConstant.HTTP_TIME_OUT);
+            con.setConnectTimeout(AppConstant.HTTP_TIME_OUT);
             con.setRequestProperty("Accept-Encoding", "identity");
             if (con.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream is = con.getInputStream();
@@ -197,8 +197,8 @@ public class HttpDownloadManager extends BaseHttpDownloadManager {
             URL url = new URL(apkUrl);
             con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
-            con.setReadTimeout(Constant.HTTP_TIME_OUT);
-            con.setConnectTimeout(Constant.HTTP_TIME_OUT);
+            con.setReadTimeout(AppConstant.HTTP_TIME_OUT);
+            con.setConnectTimeout(AppConstant.HTTP_TIME_OUT);
             //使用 gzip方式获取 解决部分链接无法获取到文件大小问题
             con.setRequestProperty("Accept-Encoding", "identity");
             int length = 0;

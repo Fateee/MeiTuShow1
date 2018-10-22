@@ -175,7 +175,7 @@ public final class NotificationUtil {
         //如果用户没有设置
         if (channel == null) {
             //IMPORTANCE_LOW：默认关闭声音与震动、IMPORTANCE_DEFAULT：开启声音与震动
-            channel = new NotificationChannel(Constant.DEFAULT_CHANNEL_ID, Constant.DEFAULT_CHANNEL_NAME,
+            channel = new NotificationChannel(AppConstant.DEFAULT_CHANNEL_ID, AppConstant.DEFAULT_CHANNEL_NAME,
                     NotificationManager.IMPORTANCE_LOW);
             //是否在桌面icon右上角展示小圆点
             channel.enableLights(true);
@@ -196,11 +196,11 @@ public final class NotificationUtil {
     private static String getNotificationChannelId() {
         NotificationChannel channel = DownloadManager.getInstance().getConfiguration().getNotificationChannel();
         if (channel == null) {
-            return Constant.DEFAULT_CHANNEL_ID;
+            return AppConstant.DEFAULT_CHANNEL_ID;
         }
         String channelId = channel.getId();
         if (TextUtils.isEmpty(channelId)) {
-            return Constant.DEFAULT_CHANNEL_ID;
+            return AppConstant.DEFAULT_CHANNEL_ID;
         }
         return channelId;
     }

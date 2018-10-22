@@ -1,10 +1,10 @@
-package com.meitu.show;
+package com.meitu.show.Constant;
 
 /**
  * Created by Administrator on 2018/2/4.
  */
 
-public class Constant {
+public class UrlConst {
     public static final String mHomeUrl = "http://www.meitu99.cn/";
 
     public static final String mHomePoUrl = "http://www.poshow18.com/";
