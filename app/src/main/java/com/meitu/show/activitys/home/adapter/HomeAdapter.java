@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.meitu.show.BaseFragment;
 import com.meitu.show.Constant.UrlConst;
 import com.meitu.show.R;
+import com.meitu.show.activitys.RegisterActivity;
 import com.meitu.show.activitys.details.PhotoViewActivity;
 import com.meitu.show.activitys.home.activity.CategoryListActivity;
 import com.meitu.show.fragments.CategoryFragment;
@@ -25,6 +26,7 @@ import com.meitu.show.model.PoProlistModel;
 import com.meitu.show.model.ProlistModel;
 import com.meitu.show.activitys.profilelist.activity.ProfileListActivity;
 import com.meitu.show.utils.ScreenUtil;
+import com.meitu.show.utils.UserInfoUtil;
 import com.payelves.sdk.EPay;
 import com.payelves.sdk.enums.EPayResult;
 import com.payelves.sdk.listener.PayResultListener;
@@ -49,10 +51,15 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
             CommonContentBean mPicBean = (CommonContentBean) v.getTag(R.id.id_one);
             int imgId = mPicBean.getId();
             String typeStr = "";
+            boolean islogin = UserInfoUtil.isUserLogin(mContext);
             switch (mType) {
                 case BaseFragment.LATEST_TYPE:
                     typeStr = LatestFragment.TAG;
-                    ProfileListActivity.startActivity(mContext, mPicBean, mType);
+                    if(islogin) {
+                        ProfileListActivity.startActivity(mContext, mPicBean, mType);
+                    } else {
+                        RegisterActivity.startActivity(mContext);
+                    }
                     break;
                 case BaseFragment.CATEGORY_TYPE:
                     typeStr = CategoryFragment.TAG;
@@ -73,7 +80,11 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
                     break;
                 case BaseFragment.CHOSEN_TYPE:
                     typeStr = ChosenFragment.TAG;
-                    ProfileListActivity.startActivity(mContext, mPicBean, mType);
+                    if(islogin) {
+                        ProfileListActivity.startActivity(mContext, mPicBean, mType);
+                    } else {
+                        RegisterActivity.startActivity(mContext);
+                    }
                     break;
                 default:
                     if (mContext instanceof CategoryListActivity)
@@ -85,6 +96,7 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
             HashMap<String, String> map = new HashMap<>();
             map.put("view_type", typeStr);
             map.put("imgId", imgId + "");
+            map.put("islogin", islogin + "");
             MobclickAgent.onEvent(mContext, "Click", map);
         }
     };
@@ -105,14 +117,18 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
                     break;
             }
             int pos = (int) v.getTag(R.id.id_one);
-
+            boolean isvip = UserInfoUtil.isUserVip(mContext);
             HashMap<String, String> map = new HashMap<>();
             map.put("view_type", typeStr + "_profilelist");
             map.put("imgId", mImgId + "");
             map.put("pos", pos + "");
+            map.put("isvip", isvip + "");
             MobclickAgent.onEvent(mContext, "Click", map);
-
-            startActivity(mContext, pos, mDataList);
+            if(isvip) {
+                startActivity(mContext, pos, mDataList);
+            } else {
+                //todo huyi 显示赞助弹窗，点击去付款页面
+            }
         }
     };
     private int mType;

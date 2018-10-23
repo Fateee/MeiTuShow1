@@ -24,29 +24,38 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2018/1/18.
  */
 
-public abstract class BaseActivity <P extends BasePresenter, V extends BaseViewInf> extends AppCompatActivity {
+public abstract class BaseActivity <P extends BasePresenter> extends AppCompatActivity implements BaseViewInf{
 
     private P mP;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initBundle();
         setContentView(getContentView());
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         PushAgent.getInstance(this).onAppStart();
-//        initData();
+        initView();
         mP = getPresenter();
         if (mP == null) return;
-        mP.attach((V)this);
+        mP.attach(this);
+        initDatas();
     }
 
 //    public void initData() {
 //    }
 
+    protected abstract void initBundle();
+
     protected abstract int getContentView();
 
+    protected abstract void initView();
+
     protected abstract P getPresenter();
+
+    protected abstract void initDatas();
+
 
     @Override
     protected void onDestroy() {

@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.meitu.show.BaseActivity1;
+import com.meitu.show.BaseActivity;
 import com.meitu.show.R;
 import com.meitu.show.activitys.home.activity.HomeActivity;
 import com.meitu.show.model.RegisterModel;
@@ -30,7 +30,7 @@ import butterknife.OnClick;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
-public class RegisterActivity extends BaseActivity1<RegisterPresenter> implements RegisterIV {
+public class RegisterActivity extends BaseActivity<RegisterPresenter> implements RegisterIV {
 
     @BindView(R.id.iv_register_bg)
     ImageView mRegisterBgIV;
@@ -76,6 +76,11 @@ public class RegisterActivity extends BaseActivity1<RegisterPresenter> implement
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void initBundle() {
+
     }
 
     @Override
@@ -193,6 +198,11 @@ public class RegisterActivity extends BaseActivity1<RegisterPresenter> implement
     @Override
     protected int getContentView() {
         return R.layout.lg_fragment_login_with_phone;
+    }
+
+    @Override
+    protected void initView() {
+
     }
 
     @Override

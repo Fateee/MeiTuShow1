@@ -34,7 +34,8 @@
 
         <activity
             android:name=".activitys.home.activity.HomeActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->
 

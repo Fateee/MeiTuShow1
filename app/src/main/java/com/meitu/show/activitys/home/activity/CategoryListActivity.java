@@ -26,7 +26,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class CategoryListActivity extends BaseActivity<CategoryListPresenter, CategoryListActivity> implements HomeViewInterface {
+public class CategoryListActivity extends BaseActivity<CategoryListPresenter> implements HomeViewInterface {
 
     @BindView(R.id.swipe_grid_list)
     SwipeMenuRecyclerView swipeGridList;
@@ -60,7 +60,7 @@ public class CategoryListActivity extends BaseActivity<CategoryListPresenter, Ca
     private SwipeRefreshLayout.OnRefreshListener mReefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            initData();
+            initDatas();
         }
     };
     private HomeAdapter mHomeAdapter;
@@ -80,27 +80,35 @@ public class CategoryListActivity extends BaseActivity<CategoryListPresenter, Ca
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prepareData();
-        initView();
-        initData();
+//        prepareData();
+//        initView();
+//        initData();
     }
 
-    private void prepareData() {
+    @Override
+    protected void initBundle() {
         mImgId = getIntent().getIntExtra(ProfileListActivity.URL_ID_PARAM,0);
         mViewType = getIntent().getIntExtra(ProfileListActivity.VIEW_TYPE,0);
         mCommonContentBean = (CommonContentBean) getIntent().getSerializableExtra(ProfileListActivity.BEAN_PARAM);
     }
+
+//    private void prepareData() {
+//        mImgId = getIntent().getIntExtra(ProfileListActivity.URL_ID_PARAM,0);
+//        mViewType = getIntent().getIntExtra(ProfileListActivity.VIEW_TYPE,0);
+//        mCommonContentBean = (CommonContentBean) getIntent().getSerializableExtra(ProfileListActivity.BEAN_PARAM);
+//    }
 
     @Override
     protected int getContentView() {
         return R.layout.activity_main;
     }
 
-    public void initData() {
-        mCategoryListPresenter.getCategoryMeiTuList(true,mImgId);
-    }
+//    public void initData() {
+//        mCategoryListPresenter.getCategoryMeiTuList(true,mImgId);
+//    }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         txtMainTitle.setText(mCommonContentBean == null ? "":mCommonContentBean.getName());
         swipeRefreshGridList.setOnRefreshListener(mReefreshListener);
         swipeGridList.useDefaultLoadMore();
@@ -117,6 +125,11 @@ public class CategoryListActivity extends BaseActivity<CategoryListPresenter, Ca
     protected CategoryListPresenter getPresenter() {
         mCategoryListPresenter = new CategoryListPresenter();
         return mCategoryListPresenter;
+    }
+
+    @Override
+    protected void initDatas() {
+        mCategoryListPresenter.getCategoryMeiTuList(true,mImgId);
     }
 
     @Override

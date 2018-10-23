@@ -29,7 +29,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2018/2/4.
  */
 
-public class ProfileListActivity extends BaseActivity<PoProListPresenter, ProfileListActivity> implements ProListViewInterface {
+public class ProfileListActivity extends BaseActivity<PoProListPresenter> implements ProListViewInterface {
 
     public static String URL_ID_PARAM = "URL_PARAM";
     public static String BEAN_PARAM = "BEAN_PARAM";
@@ -64,7 +64,7 @@ public class ProfileListActivity extends BaseActivity<PoProListPresenter, Profil
     private SwipeRefreshLayout.OnRefreshListener mReefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            initData();
+            initDatas();
         }
     };
     private int mImgId;
@@ -83,9 +83,16 @@ public class ProfileListActivity extends BaseActivity<PoProListPresenter, Profil
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prepareData();
-        initView();
-        initData();
+//        prepareData();
+//        initView();
+//        initData();
+    }
+
+    @Override
+    protected void initBundle() {
+        mImgId = getIntent().getIntExtra(URL_ID_PARAM,0);
+        mViewType = getIntent().getIntExtra(VIEW_TYPE,0);
+        mCommonContentBean = (CommonContentBean) getIntent().getSerializableExtra(BEAN_PARAM);
     }
 
     @Override
@@ -93,17 +100,18 @@ public class ProfileListActivity extends BaseActivity<PoProListPresenter, Profil
         return R.layout.activity_main;
     }
 
-    private void prepareData() {
-        mImgId = getIntent().getIntExtra(URL_ID_PARAM,0);
-        mViewType = getIntent().getIntExtra(VIEW_TYPE,0);
-        mCommonContentBean = (CommonContentBean) getIntent().getSerializableExtra(BEAN_PARAM);
-    }
+//    private void prepareData() {
+//        mImgId = getIntent().getIntExtra(URL_ID_PARAM,0);
+//        mViewType = getIntent().getIntExtra(VIEW_TYPE,0);
+//        mCommonContentBean = (CommonContentBean) getIntent().getSerializableExtra(BEAN_PARAM);
+//    }
+//
+//    public void initData() {
+//        mProListPresenter.getProlistMeiTuList(true, mImgId);
+//    }
 
-    public void initData() {
-        mProListPresenter.getProlistMeiTuList(true, mImgId);
-    }
-
-    private void initView() {
+    @Override
+    protected void initView() {
         txtLeftTitle.setVisibility(View.VISIBLE);
         txtMainTitle.setText(mCommonContentBean == null ? "": mCommonContentBean.getNameEn());
         swipeRefreshGridList.setOnRefreshListener(mReefreshListener);
@@ -124,6 +132,11 @@ public class ProfileListActivity extends BaseActivity<PoProListPresenter, Profil
     protected PoProListPresenter getPresenter() {
         mProListPresenter = new PoProListPresenter();
         return mProListPresenter;
+    }
+
+    @Override
+    protected void initDatas() {
+        mProListPresenter.getProlistMeiTuList(true, mImgId);
     }
 
     @Override

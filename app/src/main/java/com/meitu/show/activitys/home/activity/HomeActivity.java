@@ -51,9 +51,13 @@ public class HomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-//        request();
-        initView();
-        initData();
+//        initView();
+//        initData();
+        initDatas();
+    }
+
+    @Override
+    protected void initBundle() {
     }
 
     @Override
@@ -66,27 +70,8 @@ public class HomeActivity extends BaseActivity {
         return null;
     }
 
-    private void initView() {
-        mFragments = new ArrayList<>();
-        mPagerAdapter = new FragmentListAdapter(getSupportFragmentManager());
-        for (String tab : tabs) {
-            switch (tab) {//
-                case "最新":
-                    mFragments.add(LatestFragment.getInstance(tab));
-                    break;
-                case "专辑":
-                    mFragments.add(CategoryFragment.getInstance(tab));
-                    break;
-                case "精选":
-                    mFragments.add(ChosenFragment.getInstance(tab));
-                    break;
-            }
-        }
-        mPagerAdapter.setTabText(Arrays.asList(tabs));
-        mPagerAdapter.setFragments(mFragments);
-    }
-
-    public void initData() {
+    @Override
+    protected void initDatas() {
         mViewPager.setAdapter(mPagerAdapter);
         //缓存fragment页面最大为4页
         mViewPager.setOffscreenPageLimit(3);
@@ -122,6 +107,64 @@ public class HomeActivity extends BaseActivity {
             initTablayout();
         }
     }
+
+    @Override
+    protected void initView() {
+        mFragments = new ArrayList<>();
+        mPagerAdapter = new FragmentListAdapter(getSupportFragmentManager());
+        for (String tab : tabs) {
+            switch (tab) {//
+                case "最新":
+                    mFragments.add(LatestFragment.getInstance(tab));
+                    break;
+                case "专辑":
+                    mFragments.add(CategoryFragment.getInstance(tab));
+                    break;
+                case "精选":
+                    mFragments.add(ChosenFragment.getInstance(tab));
+                    break;
+            }
+        }
+        mPagerAdapter.setTabText(Arrays.asList(tabs));
+        mPagerAdapter.setFragments(mFragments);
+    }
+
+//    public void initData() {
+//        mViewPager.setAdapter(mPagerAdapter);
+//        //缓存fragment页面最大为4页
+//        mViewPager.setOffscreenPageLimit(3);
+//        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+////                mCurTabIndex = position;
+////                mCurrentFragment = mFragments.get(position);
+////                mTitleView.setKeyWord(mSearchWord);
+////                mTitleView.toggleChangeBtn(mCurrentFragment instanceof SearchProductFragment);
+////                if (null != mCurrentFragment && !TextUtils.isEmpty(mTitleView.getSearchText())) {
+////                    mCurrentFragment.loadData(mTitleView.getSearchText());
+////                }
+////                if (!setShopData(mShopHandler)) {
+////                    mBannerView.setGone();
+////                }
+////                SASearchConstant.reportTabClickToSA(SearchListNewActivity.this, tabs.get(position).tabName);
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
+//        mTabLayout.setupWithViewPager(mViewPager);
+//        mViewPager.setCurrentItem(0, true);
+//        //线上crash fix，mFragments是根据tabs数量来初始化的，只有tabs数不大于1时mFragments才可能为空
+//        if (mFragments != null && mFragments.size() > 0) {
+//            initTablayout();
+//        }
+//    }
 
     private static final String TAG = "HomeActivity";
 
