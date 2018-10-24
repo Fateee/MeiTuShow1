@@ -5,11 +5,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -18,15 +17,15 @@ import android.widget.TextView;
 import com.meitu.show.BaseActivity;
 import com.meitu.show.BaseFragment;
 import com.meitu.show.R;
-import com.meitu.show.activitys.home.adapter.HomeAdapter;
+import com.meitu.show.activitys.RegisterActivity;
 import com.meitu.show.fragments.CategoryFragment;
 import com.meitu.show.fragments.ChosenFragment;
 import com.meitu.show.fragments.FragmentListAdapter;
 import com.meitu.show.fragments.LatestFragment;
-import com.meitu.show.presenter.HomePresenter;
+import com.meitu.show.listener.OnRvScrollListener;
 import com.meitu.show.presenter.base.BasePresenter;
+import com.meitu.show.utils.UserInfoUtil;
 import com.umeng.analytics.MobclickAgent;
-import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,8 +33,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity implements OnRvScrollListener {
 
     @BindView(R.id.top_tab)
     TabLayout mTabLayout;
@@ -43,9 +43,15 @@ public class HomeActivity extends BaseActivity {
     @BindView(R.id.viewpager)
     ViewPager mViewPager;
 
+    @BindView(R.id.ui_user_center)
+    FloatingActionButton mUserCenterBt;
+
     private FragmentListAdapter mPagerAdapter;
     List<BaseFragment> mFragments;
     private String[] tabs = {"最新", "专辑", "精选"};
+    private LatestFragment mLatestFragment;
+    private CategoryFragment mCategoryFragment;
+    private ChosenFragment mChosenFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,13 +121,19 @@ public class HomeActivity extends BaseActivity {
         for (String tab : tabs) {
             switch (tab) {//
                 case "最新":
-                    mFragments.add(LatestFragment.getInstance(tab));
+                    mLatestFragment = LatestFragment.getInstance(tab);
+                    mLatestFragment.setOnRvScrollListener(this);
+                    mFragments.add(mLatestFragment);
                     break;
                 case "专辑":
-                    mFragments.add(CategoryFragment.getInstance(tab));
+                    mCategoryFragment = CategoryFragment.getInstance(tab);
+                    mCategoryFragment.setOnRvScrollListener(this);
+                    mFragments.add(mCategoryFragment);
                     break;
                 case "精选":
-                    mFragments.add(ChosenFragment.getInstance(tab));
+                    mChosenFragment = ChosenFragment.getInstance(tab);
+                    mChosenFragment.setOnRvScrollListener(this);
+                    mFragments.add(mChosenFragment);
                     break;
             }
         }
@@ -167,7 +179,6 @@ public class HomeActivity extends BaseActivity {
 //    }
 
     private static final String TAG = "HomeActivity";
-
 
 
     public void initTablayout() {
@@ -236,7 +247,24 @@ public class HomeActivity extends BaseActivity {
         MobclickAgent.onPageEnd(TAG);
     }
 
+    @OnClick(R.id.ui_user_center)
+    public void goUserCenter() {
+        if (UserInfoUtil.isUserLogin(getApplicationContext())) {
+            //todo 个人中心
+        } else {
+            RegisterActivity.startActivity(this);
+        }
+    }
+
     public static void startActivity(Context context) {
-        context.startActivity(new Intent(context,HomeActivity.class));
+        context.startActivity(new Intent(context, HomeActivity.class));
+    }
+
+    @Override
+    public void onScrolled(int dx, int dy) {
+        Log.e(TAG,"dy == "+dy);
+        if (dy < 0) {
+
+        }
     }
 }

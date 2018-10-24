@@ -14,7 +14,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseFragment<P extends BasePresenter, V extends BaseViewInf> extends Fragment {
+public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements BaseViewInf{
 
     private P mP;
     public static final int LATEST_TYPE = 1;
@@ -26,7 +26,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends BaseViewIn
 //        EventBus.getDefault().register(this);
         mP = getPresenter();
         if (mP == null) return;
-        mP.attach((V) this);
+        mP.attach(this);
     }
 
     @Nullable

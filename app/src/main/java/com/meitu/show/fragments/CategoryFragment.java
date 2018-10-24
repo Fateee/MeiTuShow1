@@ -3,12 +3,14 @@ package com.meitu.show.fragments;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.meitu.show.BaseFragment;
 import com.meitu.show.R;
 import com.meitu.show.activitys.home.adapter.HomeAdapter;
+import com.meitu.show.listener.OnRvScrollListener;
 import com.meitu.show.model.CommonContentBean;
 import com.meitu.show.presenter.CategoryPresenter;
 import com.meitu.show.view.SimpleToolbar;
@@ -20,7 +22,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class CategoryFragment extends BaseFragment<CategoryPresenter, LatestFragment> implements HomeViewInterface {
+public class CategoryFragment extends BaseFragment<CategoryPresenter> implements HomeViewInterface {
 
     public static final String TAG = "CategoryFragment";
 
@@ -38,6 +40,8 @@ public class CategoryFragment extends BaseFragment<CategoryPresenter, LatestFrag
 
     @BindView(R.id.simple_toolbar)
     SimpleToolbar simpleToolbar;
+
+    private OnRvScrollListener mOnRvScrollListener;
 
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
         @Override
@@ -95,6 +99,15 @@ public class CategoryFragment extends BaseFragment<CategoryPresenter, LatestFrag
         mHomeAdapter = new HomeAdapter(getActivity());
         mHomeAdapter.setViewType(CATEGORY_TYPE);
         swipeGridList.setAdapter(mHomeAdapter);
+
+        swipeGridList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (mOnRvScrollListener != null) {
+                    mOnRvScrollListener.onScrolled(dx,dy);
+                }
+            }
+        });
     }
 
     @Override
@@ -133,5 +146,9 @@ public class CategoryFragment extends BaseFragment<CategoryPresenter, LatestFrag
     public void onPause() {
         super.onPause();
         MobclickAgent.onPageEnd(TAG);
+    }
+
+    public void setOnRvScrollListener(OnRvScrollListener mOnRvScrollListener) {
+        this.mOnRvScrollListener = mOnRvScrollListener;
     }
 }
