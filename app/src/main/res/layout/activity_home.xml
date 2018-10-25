@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activitys.home.activity.CategoryListActivity">
+    android:orientation="vertical">
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/top_tab"
-        style="@style/Widget.TabLayout"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:tabGravity="center"
-        app:tabIndicatorHeight="0dp"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="#333333"
-        app:tabTextAppearance="@style/ls_tab_text_style"
-        app:tabTextColor="#999999" />
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/top_tab"
+            style="@style/Widget.TabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="#333333"
+            app:tabTextAppearance="@style/ls_tab_text_style"
+            app:tabTextColor="#999999" />
+    </android.support.design.widget.AppBarLayout>
 
     <!--分类内容-->
     <android.support.v4.view.ViewPager
@@ -25,16 +30,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/top_tab"
-        android:fadingEdge="none" />
+        android:fadingEdge="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/ui_user_center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="end|bottom"
         android:layout_margin="20dp"
-        app:elevation="5dp"
         android:src="@drawable/icon_myinfo"
-        app:backgroundTint="#eeeeee"/>
-</RelativeLayout>
+        app:backgroundTint="#eeeeee"
+        app:elevation="5dp"
+        app:layout_behavior="com.meitu.show.others.UserCenterBehavior" />
+</android.support.design.widget.CoordinatorLayout>
