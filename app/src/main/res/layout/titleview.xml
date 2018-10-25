@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:singleLine="true"
-        tools:text="魅图秀秀"
+        tools:text="魅图秀"
         android:textColor="#333333"
         android:textSize="15sp"
         android:visibility="visible" />
