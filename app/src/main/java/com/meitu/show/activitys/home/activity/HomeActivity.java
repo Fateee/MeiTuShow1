@@ -17,6 +17,7 @@ import com.meitu.show.BaseActivity;
 import com.meitu.show.BaseFragment;
 import com.meitu.show.R;
 import com.meitu.show.activitys.RegisterActivity;
+import com.meitu.show.activitys.usercenter.UserCenterActivity;
 import com.meitu.show.fragments.CategoryFragment;
 import com.meitu.show.fragments.ChosenFragment;
 import com.meitu.show.fragments.FragmentListAdapter;
@@ -245,7 +246,7 @@ public class HomeActivity extends BaseActivity {
     @OnClick(R.id.ui_user_center)
     public void goUserCenter() {
         if (UserInfoUtil.isUserLogin(getApplicationContext())) {
-            //todo 个人中心
+            UserCenterActivity.startActivity(this);
         } else {
             RegisterActivity.startActivity(this);
         }

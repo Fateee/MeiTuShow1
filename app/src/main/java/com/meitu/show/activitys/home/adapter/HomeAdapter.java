@@ -55,7 +55,7 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
             CommonContentBean mPicBean = (CommonContentBean) v.getTag(R.id.id_one);
             int imgId = mPicBean.getId();
             String typeStr = "";
-            boolean islogin = UserInfoUtil.isUserLogin(mContext);
+            boolean islogin = UserInfoUtil.isUserLogin(mContext.getApplicationContext());
             switch (mType) {
                 case BaseFragment.LATEST_TYPE:
                     typeStr = LatestFragment.TAG;
