@@ -25,12 +25,16 @@ import com.meitu.show.model.HomeMeituModel;
 import com.meitu.show.model.PoProlistModel;
 import com.meitu.show.model.ProlistModel;
 import com.meitu.show.activitys.profilelist.activity.ProfileListActivity;
+import com.meitu.show.model.eventbus.EventConst;
+import com.meitu.show.model.eventbus.MessageEvent;
 import com.meitu.show.utils.ScreenUtil;
 import com.meitu.show.utils.UserInfoUtil;
 import com.payelves.sdk.EPay;
 import com.payelves.sdk.enums.EPayResult;
 import com.payelves.sdk.listener.PayResultListener;
 import com.umeng.analytics.MobclickAgent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -128,6 +132,7 @@ public class HomeAdapter<T> extends RecyclerView.Adapter<HomeViewHolder> {
                 startActivity(mContext, pos, mDataList);
             } else {
                 //todo huyi 显示赞助弹窗，点击去付款页面
+                EventBus.getDefault().post(new MessageEvent(EventConst.CREAT_VIP_DIALOG));
             }
         }
     };

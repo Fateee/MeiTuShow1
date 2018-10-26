@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -22,7 +21,6 @@ import com.meitu.show.fragments.CategoryFragment;
 import com.meitu.show.fragments.ChosenFragment;
 import com.meitu.show.fragments.FragmentListAdapter;
 import com.meitu.show.fragments.LatestFragment;
-import com.meitu.show.listener.OnRvScrollListener;
 import com.meitu.show.presenter.base.BasePresenter;
 import com.meitu.show.utils.UserInfoUtil;
 import com.umeng.analytics.MobclickAgent;
@@ -35,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HomeActivity extends BaseActivity implements OnRvScrollListener {
+public class HomeActivity extends BaseActivity {
 
     @BindView(R.id.top_tab)
     TabLayout mTabLayout;
@@ -122,17 +120,14 @@ public class HomeActivity extends BaseActivity implements OnRvScrollListener {
             switch (tab) {//
                 case "最新":
                     mLatestFragment = LatestFragment.getInstance(tab);
-                    mLatestFragment.setOnRvScrollListener(this);
                     mFragments.add(mLatestFragment);
                     break;
                 case "专辑":
                     mCategoryFragment = CategoryFragment.getInstance(tab);
-                    mCategoryFragment.setOnRvScrollListener(this);
                     mFragments.add(mCategoryFragment);
                     break;
                 case "精选":
                     mChosenFragment = ChosenFragment.getInstance(tab);
-                    mChosenFragment.setOnRvScrollListener(this);
                     mFragments.add(mChosenFragment);
                     break;
             }
@@ -260,11 +255,4 @@ public class HomeActivity extends BaseActivity implements OnRvScrollListener {
         context.startActivity(new Intent(context, HomeActivity.class));
     }
 
-    @Override
-    public void onScrolled(int dx, int dy) {
-        Log.e(TAG,"dy == "+dy);
-        if (dy < 0) {
-
-        }
-    }
 }

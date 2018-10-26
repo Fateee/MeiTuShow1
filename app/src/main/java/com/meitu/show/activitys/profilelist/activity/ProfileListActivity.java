@@ -3,6 +3,7 @@ package com.meitu.show.activitys.profilelist.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
@@ -14,11 +15,17 @@ import com.meitu.show.activitys.home.adapter.HomeAdapter;
 import com.meitu.show.model.CommonContentBean;
 import com.meitu.show.model.PoProlistModel;
 import com.meitu.show.model.ProlistModel;
+import com.meitu.show.model.eventbus.EventConst;
+import com.meitu.show.model.eventbus.MessageEvent;
 import com.meitu.show.presenter.PoProListPresenter;
 import com.meitu.show.view.SimpleToolbar;
+import com.meitu.show.view.VipTipDialog;
 import com.meitu.show.viewinf.ProListViewInterface;
 import com.umeng.analytics.MobclickAgent;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -199,4 +206,21 @@ public class ProfileListActivity extends BaseActivity<PoProListPresenter> implem
         super.onPause();
         MobclickAgent.onPageEnd(TAG);
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void OnEventbus(MessageEvent messageEvent) {
+        switch (messageEvent.getMsgCode()) {
+            case EventConst.CREAT_VIP_DIALOG:
+//                VipTipDialog mVipTipDialog = new VipTipDialog();
+//                mVipTipDialog.show(getFragmentManager(),TAG);
+
+                VipTipDialog mVipTipDialog = new VipTipDialog();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                mVipTipDialog.show(ft, "df");
+
+                break;
+        }
+    }
+
 }

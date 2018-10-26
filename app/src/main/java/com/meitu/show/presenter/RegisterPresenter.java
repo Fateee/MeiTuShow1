@@ -52,18 +52,21 @@ public class RegisterPresenter extends BasePresenter<RegisterIV,RegisterModel> {
         });
     }
 
-    public void getRegisterUser(String phone, String phoneCode) {
+    public void getRegisterUser(String phone) {
         if (getView() != null) getView().showLoading();
         Map<String,String> param = new HashMap<>();
         param.put("phone", phone);
-        param.put("phonecode", phoneCode);
+        param.put("phonecode", "520520");
         Call<RegisterModel> requestCallback = mRegisterRequest.postRegisterUser(param);
         requestCallback.enqueue(new Callback<RegisterModel>() {
             @Override
             public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
-                if (getView() != null) getView().dismissLoading();
-                if (response.body() == null || response.body().getCode() != 0) return;
                 RegisterIV signView = getView();
+                if (signView != null) signView.dismissLoading();
+                if (response.body() == null || response.body().getCode() != 0) {
+                    signView.notifyRegisterResult(null);
+                    return;
+                }
                 RegisterModel.DataBean data = response.body().getData();
                 if (signView != null && data != null) {
                     signView.notifyRegisterResult(data);
@@ -72,7 +75,11 @@ public class RegisterPresenter extends BasePresenter<RegisterIV,RegisterModel> {
 
             @Override
             public void onFailure(Call<RegisterModel> call, Throwable t) {
-
+                RegisterIV signView = getView();
+                if (signView != null) {
+                    signView.dismissLoading();
+                    signView.notifyRegisterResult(null);
+                }
             }
         });
     }

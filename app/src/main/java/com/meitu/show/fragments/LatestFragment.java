@@ -1,6 +1,5 @@
 package com.meitu.show.fragments;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import com.meitu.show.BaseFragment;
 import com.meitu.show.R;
 import com.meitu.show.activitys.home.adapter.HomeAdapter;
-import com.meitu.show.listener.OnRvScrollListener;
 import com.meitu.show.model.CommonContentBean;
 import com.meitu.show.presenter.HomePresenter;
 import com.meitu.show.view.SimpleToolbar;
@@ -45,8 +43,6 @@ public class LatestFragment extends BaseFragment<HomePresenter> implements HomeV
     private HomePresenter mHomePresenter;
 
     private HomeAdapter mHomeAdapter;
-
-    private OnRvScrollListener mOnRvScrollListener;
 
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
         @Override
@@ -104,14 +100,6 @@ public class LatestFragment extends BaseFragment<HomePresenter> implements HomeV
         swipeGridList.setAdapter(mHomeAdapter);
 
         mHomePresenter.getAppNewestInfo();
-        swipeGridList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (mOnRvScrollListener != null) {
-                    mOnRvScrollListener.onScrolled(dx,dy);
-                }
-            }
-        });
     }
 
     @Override
@@ -152,7 +140,4 @@ public class LatestFragment extends BaseFragment<HomePresenter> implements HomeV
         MobclickAgent.onPageEnd(TAG);
     }
 
-    public void setOnRvScrollListener(OnRvScrollListener mOnRvScrollListener) {
-        this.mOnRvScrollListener = mOnRvScrollListener;
-    }
 }

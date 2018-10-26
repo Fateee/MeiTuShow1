@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ClickableHistogram">
+        <attr name="columnWidth" format="dimension"/>
+        <attr name="columnMargin" format="dimension"/>
+        <attr name="axisWidth" format="dimension"/>
+        <attr name="histtextSize" format="dimension"/>
+        <attr name="histtextColor" format="color"/>
+        <attr name="columnColor" format="color"/>
+        <attr name="axisColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pstsIndicatorColor" format="color" />
+        <attr name="pstsUnderlineColor" format="color" />
+        <attr name="pstsDividerColor" format="color" />
+        <attr name="pstsIndicatorHeight" format="dimension" />
+        <attr name="pstsUnderlineHeight" format="dimension" />
+        <attr name="pstsDividerPadding" format="dimension" />
+        <attr name="pstsTabPaddingLeftRight" format="dimension" />
+        <attr name="pstsScrollOffset" format="dimension" />
+        <attr name="pstsTabBackground" format="reference" />
+        <attr name="pstsShouldExpand" format="boolean" />
+        <attr name="pstsTextAllCaps" format="boolean" />
+        <attr name="zphTabTextSize"   format="dimension" />
+        <attr name="zphTabTextColor"  format="color" />
+        <attr name="zphSelectedTabTextSize"   format="dimension" />
+        <attr name="zphSelectedTabTextColor" format="color" />
+    </declare-styleable>
+
+    <!--可伸展的view-->
+    <declare-styleable name="ExpandableTextView">
+        <attr name="maxCollapsedLines" format="integer"/>
+        <attr name="animDuration" format="integer"/>
+        <attr name="animAlphaStart" format="float"/>
+        <attr name="expandDrawable" format="reference"/>
+        <attr name="collapseDrawable" format="reference"/>
+    </declare-styleable>
+
+
+    <!--历史详情条目-->
+    <declare-styleable name="HistoryItemBar">
+        <attr name="postTime" format="reference"/>
+        <attr name="distance" format="float"/>
+        <attr name="speed_space" format="reference"/>
+        <attr name="sportTime" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="FlipImageView">
+        <attr name="isAnimated" format="boolean" />
+        <attr name="isFlipped" format="boolean" />
+        <attr name="flipDrawable" format="reference" />
+        <attr name="flipDuration" format="integer" />
+        <attr name="flipInterpolator" format="reference" />
+        <attr name="flipRotations">
+            <flag name="none" value="0" />
+            <flag name="x" value="1" />
+            <flag name="y" value="2" />
+            <flag name="z" value="4" />
+        </attr>
+        <attr name="reverseRotation" format="boolean"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="RoundProgressBar">
+        <attr name="roundColor" format="color"/>
+        <attr name="roundProgressColor" format="color"/>
+        <attr name="roundWidth" format="dimension"></attr>
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="dimension" />
+        <attr name="max" format="integer"></attr>
+        <attr name="textIsDisplayable" format="boolean"></attr>
+        <attr name="style">
+            <enum name="STROKE" value="0"></enum>
+            <enum name="FILL" value="1"></enum>
+        </attr>
+    </declare-styleable>
+
+    <!--上拉刷新-->
+    <declare-styleable name="SwipyRefreshLayout">
+        <attr name="direction">
+            <enum name="top" value="0" />
+            <enum name="bottom" value="1" />
+            <enum name="both" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="TypeItemView">
+        <attr name="type_icon" format="reference"/>
+        <attr name="name" format="string"/>
+        <attr name="value" format="string"/>
+        <attr name="unit" format="string"/>
+        <attr name="type" format="integer"/>
+        <attr name="text_color" format="color"/>
+        <attr name="text_main_size" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="DraggableFlagView">
+        <attr name="drag_color" format="color" />
+    </declare-styleable>
+
+    <!--自定义编辑工具栏类型-->
+    <declare-styleable name="CustomEmojiToolView">
+        <attr name="toolType" format="integer">
+            <enum name="chat_tool" value="0" />
+            <enum name="feed_tool" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <!--Circle progressBar-->
+    <declare-styleable name="CircleProgressBar">
+        <attr name="cpb_progressbar_color" format="color" />
+        <attr name="cpb_progressbar_padding" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomCalendarView">
+        <attr name="showStyle" format="integer">
+            <enum name="show_me" value="0" />
+            <enum name="show_train_summary" value="1" />
+            <enum name="show_train_detail" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="RecyclerViewPager">
+        <attr name="rvp_triggerOffset" format="float" />
+        <attr name="rvp_flingFactor" format="float" />
+        <attr name="rvp_singlePageFling" format="boolean" />
+        <attr name="rvp_inertia" format="boolean"/>
+        <attr name="rvp_millisecondsPerInch" format="float" />
+    </declare-styleable>
+
+    <!--corner_color 边角颜色，
+    scanner_color 扫描线颜色
+    possible_result_color 扫描点颜色
+    frame_color 扫描框边线颜色
+    mask_color 模糊区域颜色
+    label_text  框上方提示
+-->
+    <declare-styleable name="ViewfinderView">
+        <attr name="corner_color" format="color"/>
+        <attr name="laser_color" format="color"/>
+        <attr name="frame_color" format="color" />
+        <attr name="mask_color" format="color" />
+        <attr name="result_point_color" format="color"/>
+        <attr name="result_color" format="color" />
+        <attr name="label_text_color" format="color"/>
+        <attr name="label_text" format="string"/>
+        <attr name="label_text_size" format="float"/>
+        <attr name="label_text_tip_color" format="color"/>
+        <attr name="label_text_tip" format="string"/>
+        <attr name="label_text_tip_size" format="float"/>
+    </declare-styleable>
+
+    <declare-styleable name="ColorOptionsView">
+        <attr name="showType">
+            <enum name="TYPE_STEPDOWN" value="0" />
+            <enum name="TYPE_STEPSHAPE" value="1" />
+        </attr>
+    </declare-styleable>
+    <!--历史详情条目-->
+    <declare-styleable name="ClubDateView">
+        <attr name="monthTextSize" format="dimension"/>
+        <attr name="dayTextSize" format="dimension"/>
+        <attr name="dayText" format="string" localization="suggested" />
+        <attr name="monthText" format="string" localization="suggested" />
+    </declare-styleable>
+
+    <declare-styleable name="SimpleCornerTextView">
+        <attr name="bgColor" format="color"/>
+        <attr name="borderColor" format="color"/>
+        <attr name="borderWidth" format="dimension"/>
+        <attr name="bottomRightRadius" format="dimension"/>
+        <attr name="bottomLeftRadius" format="dimension"/>
+        <attr name="topRightRadius" format="dimension"/>
+        <attr name="topLeftRadius" format="dimension"/>
+        <attr name="radius" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="ProgressButton">
+        <attr name="progress_color" format="color" />
+        <attr name="progress_backgroundColor" format="color" />
+    </declare-styleable>
+
+    <!--<declare-styleable name="CustomFontTextView">-->
+        <!--<attr name="titleText" />-->
+        <!--<attr name="titleTextColor" />-->
+        <!--<attr name="titleTextSize" />-->
+    <!--</declare-styleable>-->
+
+
+    <declare-styleable name="CusBanner">
+        <!--页面切换时间间隔-->
+        <attr name="interval" format="integer"/>
+        <attr name="isCanLoop" format="boolean"/>
+        <attr name="isAutoPlay" format="boolean"/>
+        <!--<attr name="indicator_gravity" format="integer"/>-->
+        <attr name="indicator_checked_color" format="color"/>
+        <attr name="indicator_normal_color" format="color"/>
+        <attr name="indicator_radius" format="dimension"/>
+        <attr name="indicator_gravity" format="enum">
+            <enum name="center" value="0"/>
+            <enum name="start" value="1"/>
+            <enum name="end" value="2"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="SeatView">
+        <attr name="centerIcon" format="reference"/>
+        <attr name="tips" format="string"/>
+        <attr name="buttonTxt" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="FlowLayout">
+        <attr name="flFlow" format="boolean"/>
+        <attr name="flChildSpacing" format="enum|dimension">
+            <enum name="auto" value="-65536"/>
+        </attr>
+        <attr name="flMinChildSpacing" format="dimension"/>
+        <attr name="flChildSpacingForLastRow" format="enum|dimension">
+            <enum name="auto" value="-65536"/>
+            <enum name="align" value="-65537"/>
+        </attr>
+        <attr name="flRowSpacing" format="enum|dimension">
+            <enum name="auto" value="-65536"/>
+        </attr>
+        <attr name="flRtl" format="boolean"/>
+        <attr name="flMaxRows" format="integer"/>
+        <attr name="android:gravity"/>
+    </declare-styleable>
+
+    <declare-styleable name="SingleTouchView">
+        <attr name="src" format="reference" />            <!-- 用于缩放旋转的图标 -->
+        <attr name="editable" format="boolean"/>          <!-- 是否处于可编辑状态 -->
+        <attr name="degree" format="float" />             <!-- 旋转角度 -->
+        <attr name="scale" format="float" />              <!-- 缩放比例 -->
+        <attr name="controlDrawable" format="reference"/> <!-- 控制图标 -->
+        <attr name="controlLocation">                     <!-- 控制图标的位置 -->
+            <enum name="left_top" value="0" />
+            <enum name="right_top" value="1" />
+            <enum name="right_bottom" value="2" />
+            <enum name="left_bottom" value="3" />
+        </attr>
+    </declare-styleable>
+</resources>

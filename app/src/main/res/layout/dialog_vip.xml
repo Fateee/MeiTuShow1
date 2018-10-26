@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="70dp"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
+    android:paddingTop="70dp">
+
+    <ImageView
+        android:id="@+id/iv_vip_dialog_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_shop_three" />
+
+    <com.meitu.show.view.SimpleCornerTextView
+        android:id="@+id/bt_no_donate_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv_vip_dialog_bg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="70dp"
+        android:gravity="center"
+        android:padding="7dp"
+        android:text="等下再来"
+        android:textColor="@color/white"
+        app:bgColor="#fe4070"
+        app:radius="5dp" />
+
+    <com.meitu.show.view.SimpleCornerTextView
+        android:id="@+id/bt_go_donate_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bt_no_donate_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
+        android:layout_marginLeft="70dp"
+        android:gravity="center"
+        android:padding="7dp"
+        android:text="赞助我们"
+        android:textColor="@color/white"
+        app:bgColor="#fe4070"
+        app:radius="5dp" />
+</RelativeLayout>

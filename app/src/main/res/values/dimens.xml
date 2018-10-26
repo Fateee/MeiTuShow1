@@ -3,4 +3,5 @@
     <dimen name="common230">230dp</dimen>
     <dimen name="common6">6dp</dimen>
     <dimen name="common7">7dp</dimen>
+    <dimen name="common2">2dp</dimen>
 </resources>

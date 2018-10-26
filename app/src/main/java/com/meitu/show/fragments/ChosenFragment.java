@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.meitu.show.BaseFragment;
 import com.meitu.show.R;
 import com.meitu.show.activitys.home.adapter.HomeAdapter;
-import com.meitu.show.listener.OnRvScrollListener;
 import com.meitu.show.model.CommonContentBean;
 import com.meitu.show.presenter.ChosenPresenter;
 import com.meitu.show.view.SimpleToolbar;
@@ -37,8 +36,6 @@ public class ChosenFragment extends BaseFragment<ChosenPresenter> implements Hom
 
     @BindView(R.id.simple_toolbar)
     SimpleToolbar simpleToolbar;
-
-    private OnRvScrollListener mOnRvScrollListener;
 
     public static final String TAG = "ChosenFragment";
 
@@ -99,14 +96,6 @@ public class ChosenFragment extends BaseFragment<ChosenPresenter> implements Hom
         mHomeAdapter.setViewType(CHOSEN_TYPE);
         swipeGridList.setAdapter(mHomeAdapter);
 
-        swipeGridList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (mOnRvScrollListener != null) {
-                    mOnRvScrollListener.onScrolled(dx,dy);
-                }
-            }
-        });
     }
 
     @Override
@@ -147,7 +136,4 @@ public class ChosenFragment extends BaseFragment<ChosenPresenter> implements Hom
         MobclickAgent.onPageEnd(TAG);
     }
 
-    public void setOnRvScrollListener(OnRvScrollListener mOnRvScrollListener) {
-        this.mOnRvScrollListener = mOnRvScrollListener;
-    }
 }
