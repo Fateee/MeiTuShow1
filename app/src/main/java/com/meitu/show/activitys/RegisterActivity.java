@@ -70,7 +70,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     private ProgressDialog mProgressDialog;
 
     public static void startActivity(Context context) {
-        context.startActivity(new Intent(context,RegisterActivity.class));
+        context.startActivity(new Intent(context, RegisterActivity.class));
     }
 
     @Override
@@ -373,7 +373,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                     //todo token保存
                     String phoneNum = getTextViewString(mEdtPhoneNumber);
                     String code = getTextViewString(mEdtCaptcha);
-                    mRegisterPresenter.postRegisterUser(phoneNum,code);
+                    mRegisterPresenter.postRegisterUser(phoneNum, code);
                 } else {
                     Toast.makeText(getApplicationContext(), "验证码输入错误", Toast.LENGTH_LONG).show();
                 }
