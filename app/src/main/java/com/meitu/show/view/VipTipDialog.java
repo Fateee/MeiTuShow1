@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.meitu.show.R;
+import com.meitu.show.activitys.donate.DonateActivity;
 
 public class VipTipDialog extends DialogFragment implements View.OnClickListener {
 
@@ -53,6 +54,7 @@ public class VipTipDialog extends DialogFragment implements View.OnClickListener
                 break;
             case R.id.bt_go_donate_view:
                 //去捐赠
+                DonateActivity.startActivity(getActivity());
                 break;
         }
     }

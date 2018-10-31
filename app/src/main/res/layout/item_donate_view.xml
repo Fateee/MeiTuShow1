@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/tv_vip_pro_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="11dp"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        tools:text="VIP月度会员（享受30天）" />
+
+    <com.meitu.show.view.SimpleCornerTextView
+        android:id="@+id/tv_vip_price"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:layout_margin="11dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:bgColor="@color/jm_color"
+        app:radius="4dp"
+        tools:text="¥109.00" />
+</RelativeLayout>

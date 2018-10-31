@@ -70,6 +70,9 @@
             android:name=".activitys.usercenter.UserCenterActivity"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name=".activitys.donate.DonateActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
