@@ -55,6 +55,31 @@ public class DonateAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHold
     private int[] mPlaceHolders = new int[]{R.color.CBBDEFB, R.color.CC5CAE9, R.color.CD8D8D8, R.color.CDCEDC8, R.color.CFDEFBA};
     private ArrayList<T> mDataList;
     private Context mContext;
+    private View.OnClickListener mOnBuyLisntener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            BuyVipModel buyVipModel = (BuyVipModel) v.getTag();
+            int days = buyVipModel.getDays();
+            String info = buyVipModel.getProName();
+            double price = buyVipModel.getPrice();
+            if (days > 0) {
+                info = String.format(info,days);
+            }
+            EPay.getInstance(mContext).pay("成为会员", info, (int) (price*100), "", "", "", new PayResultListener() {
+                @Override
+                public void onFinish(Context context, Long payId, String orderId, String payUserId, EPayResult payResult, int payType, Integer amount) {
+                    EPay.getInstance(context).closePayView();//关闭快捷支付页面
+                    if(payResult.getCode() == EPayResult.SUCCESS_CODE.getCode()){
+                        //支付成功逻辑处理
+                        Toast.makeText(mContext, payResult.getMsg(), Toast.LENGTH_LONG).show();
+                    }else if(payResult.getCode() == EPayResult.FAIL_CODE.getCode()){
+                        //支付失败逻辑处理
+                        Toast.makeText(mContext, payResult.getMsg(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }
+    };
 //    private View.OnClickListener mProlistListener = new View.OnClickListener() {
 //        @Override
 //        public void onClick(View v) {
@@ -168,6 +193,8 @@ public class DonateAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHold
                     donateHolder.mVipProName.setText(String.format(info,days));
                 }
                 donateHolder.mVipPrice.setText("¥"+String.valueOf(price));
+                donateHolder.mVipPrice.setTag(buyVipModel);
+                donateHolder.mVipPrice.setOnClickListener(mOnBuyLisntener);
             }
         }
     }
