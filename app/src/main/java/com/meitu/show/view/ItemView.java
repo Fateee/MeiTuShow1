@@ -14,12 +14,6 @@ import android.widget.TextView;
 
 import com.meitu.show.R;
 
-//*******************************************************
-//* 项目名称：MyCenter
-//* 创建者： Mr.Fang
-//* 创建日期： 2018/6/26 9:40
-//* Email：itfang@126.com
-//*******************************************************
 public class ItemView extends LinearLayout {
     private boolean isShowBottomLine = true;
     private boolean isShowLeftIcon = true;
@@ -71,6 +65,7 @@ public class ItemView extends LinearLayout {
         rootView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (listener == null) return;
                 listener.itemClick(rightDesc.getText().toString());
             }
         });
@@ -79,6 +74,7 @@ public class ItemView extends LinearLayout {
         rightArrow.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (listener == null) return;
                 listener.itemClick(rightDesc.getText().toString());
             }
         });

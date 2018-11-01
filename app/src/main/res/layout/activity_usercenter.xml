@@ -14,12 +14,12 @@
         <ImageView
             android:id="@+id/h_back"
             android:layout_width="match_parent"
-            android:layout_height="180dp" />
+            android:layout_height="160dp" />
 
         <ImageView
             android:id="@+id/h_head"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_centerInParent="true"
             android:src="@drawable/ic_launcher" />
 
@@ -64,9 +64,11 @@
         android:id="@+id/nickName"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:paddingLeft="2dp"
         app:left_icon="@drawable/ic_nick_name"
-        app:left_text="用户名"
-        app:right_text="张三" />
+        app:left_text="账号"
+        app:right_text="张三"
+        app:show_right_arrow="false" />
 
     <!--<com.meitu.show.view.ItemView-->
     <!--android:id="@+id/sex"-->
@@ -85,31 +87,41 @@
     <!--app:right_text="风一样的男子" />-->
 
     <com.meitu.show.view.ItemView
-        android:id="@+id/pass"
+        android:id="@+id/collection"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="15dp"
         android:background="@color/white"
-        app:left_icon="@drawable/ic_pass"
+        android:paddingLeft="1dp"
+        app:left_icon="@drawable/ic_collection"
         app:left_text="我的收藏"
         app:right_text="" />
 
-    <com.meitu.show.view.ItemView
-        android:id="@+id/phone"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        app:left_icon="@drawable/ic_phone"
-        app:left_text="我要捐赠"
-        app:right_text="" />
 
     <com.meitu.show.view.ItemView
         android:id="@+id/buy"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white"
-        app:left_icon="@drawable/ic_about"
+        app:left_icon="@drawable/ic_donate_boss"
         app:left_text="赞助"
+        app:right_text="" />
+
+    <com.meitu.show.view.ItemView
+        android:id="@+id/donate"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        app:left_icon="@drawable/ic_love_donate"
+        app:left_text="捐赠"
+        app:right_text="" />
+
+    <com.meitu.show.view.ItemView
+        android:id="@+id/feedback"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        app:left_icon="@drawable/ic_feedback"
+        app:left_text="反馈/建议"
         app:right_text="" />
 
     <com.meitu.show.view.ItemView
@@ -122,8 +134,10 @@
         app:right_text="" />
 
     <TextView
+        android:id="@+id/login_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:gravity="center"
         android:padding="13dp"

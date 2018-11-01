@@ -154,7 +154,8 @@ public final class SharePreUtil {
     private SharedPreferences sharedPreferences;
     /*
      * 保存手机里面的名字
-     */private SharedPreferences.Editor editor;
+     */
+    private SharedPreferences.Editor editor;
 
     private SharePreUtil(Context context,String FILE_NAME) {
         sharedPreferences = context.getSharedPreferences(USER_INFO,
